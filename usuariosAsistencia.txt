@@ -1,0 +1,4 @@
+usuario  	clave
+supervisor1	lavecosup1
+supervisor2	laveco2sup
+p@ul@	p@ul@
