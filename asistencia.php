@@ -81,7 +81,7 @@ th {
 								<br>
 								<div class="row">
 									<div class="col-md-6 col-md-offset-3">
-										<button id="nuevo" type="button" class="btn btn-success" style="width:100%;text-align:center; color: white; background:rgb(32,190,198);" onclick="obtener_asistencias()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Buscar registros</button>
+										<button id="nuevo" type="button" class="btn btn-success" style="width:100%;text-align:center; color: white; background:rgb(32,190,198);" onclick="obtener_asistencia()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Buscar registros</button>
 									</div>
 
 								</div>

@@ -17,10 +17,18 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	$returnJs = [];
 
 	$servicio = isset($_POST['servicio']) ? $_POST['servicio'] + 0 : 0;
-	$fecha = isset($_POST['fecha']) ? $conn->real_escape_string($_POST['fecha']) : '';
-	
+	$f_inicial = isset($_POST['f_inicial']) ? $conn->real_escape_string($_POST['f_inicial']) : '';
+	$f_final = isset($_POST['f_final']) ? $conn->real_escape_string($_POST['f_final']) : '';
 
-	$sql = "SELECT a.foto_asistencia as foto, a.nombre,IFNULL(a.codigo_usuario,'No registrado') as codigo,s.servicio from asistencia as a INNER JOIN servicio as s ON s.pk_servicio=a.fk_servicio WHERE SUBSTRING_INDEX(`hora_registro`, ' ', 1) = '{$fecha}' && fk_servicio = {$servicio} group by nombre order by nombre;";
+	if($f_inicial!='' && $f_final != '' ){
+		$fecha = " && SUBSTRING_INDEX(`hora_registro`, ' ', 1) >='".$f_inicial."' && SUBSTRING_INDEX(`hora_registro`, ' ', 1) <='".$f_final."'";
+	} else if($f_final==''){
+		$fecha = " && SUBSTRING_INDEX(`hora_registro`, ' ', 1) >='".$f_inicial."'";
+	} else{
+		$fecha = " && SUBSTRING_INDEX(`hora_registro`, ' ', 1) <='".$f_final."'";
+	}	
+
+	$sql = "SELECT  SUBSTRING_INDEX(`hora_registro`, ' ', -1) AS fecha, a.nombre,IFNULL(a.codigo_usuario,'No registrado') as codigo,s.servicio from asistencia as a INNER JOIN servicio as s ON s.pk_servicio=a.fk_servicio WHERE  fk_servicio = {$servicio} ".$fecha."group by nombre, fecha order by fecha DESC;";
 	error_log($sql);
 											
 	$result = $conn->query($sql);
@@ -29,7 +37,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 		
 		while($resultado = $result->fetch_assoc()){
 			
-			$sql = "SELECT SUBSTRING_INDEX(`hora_registro`, ' ', -1) as entrada from asistencia WHERE SUBSTRING_INDEX(`hora_registro`, ' ', 1) = '{$fecha}' && nombre='{$resultado['nombre']}' && accion_registro=1 && fk_servicio = {$servicio} LIMIT 1;";
+			$sql = "SELECT SUBSTRING_INDEX(`hora_registro`, ' ', -1) as registro, IF(accion_registro = 1,'E','S') AS accion from asistencia WHERE nombre='{$resultado['nombre']}' && fk_servicio = {$servicio} ;";
 			
 			$result_acceso = $conn->query($sql);
 			if ($result_acceso->num_rows == 1) {
