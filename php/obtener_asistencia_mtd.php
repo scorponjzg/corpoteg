@@ -15,6 +15,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	$entrada = array("entrada" => "No hay registro");
 	$salida = array("salida" => "No hay registro");
 	$returnJs = [];
+	$registro = [];
 
 	$servicio = isset($_POST['servicio']) ? $_POST['servicio'] + 0 : 0;
 	$f_inicial = isset($_POST['f_inicial']) ? $conn->real_escape_string($_POST['f_inicial']) : '';
@@ -28,39 +29,27 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 		$fecha = " && SUBSTRING_INDEX(`hora_registro`, ' ', 1) <='".$f_final."'";
 	}	
 
-	$sql = "SELECT  SUBSTRING_INDEX(`hora_registro`, ' ', -1) AS fecha, a.nombre,IFNULL(a.codigo_usuario,'No registrado') as codigo,s.servicio from asistencia as a INNER JOIN servicio as s ON s.pk_servicio=a.fk_servicio WHERE  fk_servicio = {$servicio} ".$fecha."group by nombre, fecha order by fecha DESC;";
-	error_log($sql);
-											
+	$sql = "SELECT  SUBSTRING_INDEX(`hora_registro`, ' ', 1) AS fecha, a.nombre,IFNULL(a.codigo_usuario,'No registrado') as codigo, s.servicio from asistencia as a INNER JOIN servicio as s ON s.pk_servicio=a.fk_servicio WHERE  fk_servicio = {$servicio} ".$fecha." group by nombre, fecha order by fecha DESC;";
+						
 	$result = $conn->query($sql);
 	
 	if ($result->num_rows > 0) {
 		
 		while($resultado = $result->fetch_assoc()){
-			
-			$sql = "SELECT SUBSTRING_INDEX(`hora_registro`, ' ', -1) as registro, IF(accion_registro = 1,'E','S') AS accion from asistencia WHERE nombre='{$resultado['nombre']}' && fk_servicio = {$servicio} ;";
+			$registro['registros'] = [];
+			$sql = "SELECT SUBSTRING_INDEX(`hora_registro`, ' ', -1) as registro, IF(accion_registro = 1,'E','S') AS accion, IFNULL(foto_asistencia,'descarga.png') AS foto  from asistencia WHERE nombre='{$resultado['nombre']}' && fk_servicio = {$servicio} && SUBSTRING_INDEX(`hora_registro`, ' ', 1) = '{$resultado['fecha']}';";
 			
 			$result_acceso = $conn->query($sql);
-			if ($result_acceso->num_rows == 1) {
-				
-				$resultado = array_merge($resultado,$result_acceso->fetch_assoc());
-			} else {
-				
-				$resultado = array_merge($resultado,$entrada);
-				
+			if ($result_acceso->num_rows >= 1) {
+				while($resultado1 = $result_acceso->fetch_assoc()){
+
+					$registro['registros'][] = $resultado1;
+
+				}
 			}
+			$resultado = array_merge($resultado,$registro);
 			
-			$sql = "SELECT SUBSTRING_INDEX(`hora_registro`, ' ', -1) as salida from asistencia WHERE SUBSTRING_INDEX(`hora_registro`, ' ', 1) = '{$fecha}' && nombre='{$resultado['nombre']}' && accion_registro=0 && fk_servicio = {$servicio} order by salida DESC LIMIT 1;";
-			
-			$result_salida = $conn->query($sql);
-			if ($result_salida->num_rows == 1) {
-				
-				$resultado = array_merge($resultado,$result_salida->fetch_assoc());
-			} else {
-				
-				$resultado = array_merge($resultado,$salida);
-				
-			}
-				$returnJs['fecha'][]= $resultado;
+			$returnJs['fecha'][]= $resultado;
 			
 		}
 		
@@ -71,6 +60,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	}
 	
 		$result->free();
+		$result_acceso ->free();
 					
 	echo json_encode($returnJs);
 	$conn->close();

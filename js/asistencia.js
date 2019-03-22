@@ -44,6 +44,8 @@ function obtener_asistencia(){
 		var inicial = $("#f_inicial").val();
 		var final = $("#f_final").val();
 		var servicio = $("#servicio").val();
+		var foto =  "";
+		var asistencia = "";
 
 		$.ajax({
 			method: "POST",
@@ -52,15 +54,21 @@ function obtener_asistencia(){
 			data:{servicio:servicio,f_inicial:inicial, f_final:final}
 		}).done(function(data){
 			
-			console.log(data);
 			var resultado = "";
 			data.fecha.forEach(function(entry){
-			resultado += '<tr>'+
+			console.log(entry);
+				resultado += '<tr>'+
+						'<td>'+entry.fecha+'</td>'+
 						'<td>'+entry.codigo+'</td>'+
-						'<td><img src="php/fotosAsistencia/'+entry.foto+'" alt="Foto" class="img-rounded" style="width:100px"></td>'+
-						'<td>'+entry.nombre+'</td>'+
-						'<td>'+entry.entrada+'</td>'+
-						'<td>'+entry.salida+'</td>'+
+						'<td>'+entry.nombre+'</td>';
+				entry.registros.forEach(function(acceso){
+				
+					foto += '<img src="php/fotosAsistencia/'+acceso.foto+'" alt="Foto" class="img-rounded" style="width:100px">';
+					asistencia += '<span>'+acceso.accion+'-'+acceso.registro+'</span><br>';
+
+				});
+				resultado += '<td>'+ foto +'</td>'+
+						'<td>'+asistencia+'</td>'+
 						'</tr>';
 			
 		    } );
