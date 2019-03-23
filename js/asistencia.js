@@ -55,22 +55,23 @@ function obtener_asistencia(){
 		}).done(function(data){
 			
 			var resultado = "";
+			console.log(data);
 			data.fecha.forEach(function(entry){
-			console.log(entry);
 				resultado += '<tr>'+
 						'<td>'+entry.fecha+'</td>'+
 						'<td>'+entry.codigo+'</td>'+
 						'<td>'+entry.nombre+'</td>';
 				entry.registros.forEach(function(acceso){
 				
-					foto += '<img src="php/fotosAsistencia/'+acceso.foto+'" alt="Foto" class="img-rounded" style="width:100px">';
+					foto += '<img src="php/fotosAsistencia/'+acceso.foto+'" alt="Foto" class="img-rounded" style="width:60px">';
 					asistencia += '<span>'+acceso.accion+'-'+acceso.registro+'</span><br>';
 
 				});
 				resultado += '<td>'+ foto +'</td>'+
 						'<td>'+asistencia+'</td>'+
 						'</tr>';
-			
+					foto="";
+					asistencia = "";
 		    } );
 		$("#reporte").empty();
 		$("#reporte").append(resultado);

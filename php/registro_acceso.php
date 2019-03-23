@@ -1,14 +1,16 @@
 <?php
 
  session_start();
+ ini_set('memory_limit', '256M');
+ error_reporting(0);
 
  require_once 'configMySQL.php';
  include ("class.ExifCleaning.php");
+
  require_once (dirname(__FILE__).'/PHP_Compat-1.6.0a3/Compat/Function/file_get_contents.php');
   
  $data = php_compat_file_get_contents('php://input');
  
-
 $ACCESSKEY="corpoteg";
 
 /************************************CONFIG****************************************/
@@ -66,9 +68,11 @@ if($_GET['p']==$ACCESSKEY){
 			 		rename($imgName,"fotosAsistencia/".$nombre_foto);
 					  //Acomodando orientación de la foto
 					  chmod("fotosAsistencia/".$nombre_foto, 0755);
+					 
 					  ExifCleaning::adjustImageOrientation("fotosAsistencia/".$nombre_foto);
 					  //Termina acomodo de orientación
 					  $sql ="UPDATE asistencia SET foto_asistencia='{$nombre_foto}' WHERE pk_asistencia = {$last_id}";
+					  
 					  $conn->query($sql);
 			 		echo "2/Registro exitoso";
 

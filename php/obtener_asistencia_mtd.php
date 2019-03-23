@@ -15,7 +15,6 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	$entrada = array("entrada" => "No hay registro");
 	$salida = array("salida" => "No hay registro");
 	$returnJs = [];
-	$registro = [];
 
 	$servicio = isset($_POST['servicio']) ? $_POST['servicio'] + 0 : 0;
 	$f_inicial = isset($_POST['f_inicial']) ? $conn->real_escape_string($_POST['f_inicial']) : '';
@@ -30,26 +29,27 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	}	
 
 	$sql = "SELECT  SUBSTRING_INDEX(`hora_registro`, ' ', 1) AS fecha, a.nombre,IFNULL(a.codigo_usuario,'No registrado') as codigo, s.servicio from asistencia as a INNER JOIN servicio as s ON s.pk_servicio=a.fk_servicio WHERE  fk_servicio = {$servicio} ".$fecha." group by nombre, fecha order by fecha DESC;";
-						
+		//error_log($sql);				
 	$result = $conn->query($sql);
 	
 	if ($result->num_rows > 0) {
 		
 		while($resultado = $result->fetch_assoc()){
-			$registro['registros'] = [];
-			$sql = "SELECT SUBSTRING_INDEX(`hora_registro`, ' ', -1) as registro, IF(accion_registro = 1,'E','S') AS accion, IFNULL(foto_asistencia,'descarga.png') AS foto  from asistencia WHERE nombre='{$resultado['nombre']}' && fk_servicio = {$servicio} && SUBSTRING_INDEX(`hora_registro`, ' ', 1) = '{$resultado['fecha']}';";
+		$registro[] = [];
 			
+			$sql = "SELECT SUBSTRING_INDEX(`hora_registro`, ' ', -1) as registro, IF(accion_registro = 1,'E','S') AS accion, IFNULL(foto_asistencia,'descarga.png') AS foto  from asistencia WHERE nombre='{$resultado['nombre']}' && fk_servicio = {$servicio} && SUBSTRING_INDEX(`hora_registro`, ' ', 1) = '{$resultado['fecha']}';";
+			//error_log($sql);	
 			$result_acceso = $conn->query($sql);
-			if ($result_acceso->num_rows >= 1) {
+			if ($result_acceso->num_rows > 0) {
 				while($resultado1 = $result_acceso->fetch_assoc()){
 
-					$registro['registros'][] = $resultado1;
+					$registro['registros'][]= $resultado1;
 
 				}
 			}
-			$resultado = array_merge($resultado,$registro);
 			
-			$returnJs['fecha'][]= $resultado;
+			$returnJs['fecha'][]= array_merge($resultado,$registro);
+			unset($registro);
 			
 		}
 		
@@ -61,7 +61,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	
 		$result->free();
 		$result_acceso ->free();
-					
+
 	echo json_encode($returnJs);
 	$conn->close();
 }
