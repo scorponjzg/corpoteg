@@ -18,18 +18,18 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		
 		$conn -> set_charset('utf8');
 		
-		$id = isset($_POST['id']) ? $conn->real_escape_string($_POST['id']) : '';
+		$nombre = isset($_POST['nombre']) ? $conn->real_escape_string($_POST['nombre']) : '';
+
 		
-		
-			$sql = "UPDATE servicio SET activo = 0 WHERE pk_servicio={$id}";
+			$sql = "INSERT INTO turno(turno) VALUES('{$nombre}')";
 	
 			$conn->query($sql);
+			
 			if($conn->affected_rows == 1){
 			
-				$returnJs['eliminado'] = 'true';
+				$returnJs['ingresado'] = 'true';
 			
 			}
-		
 		
 		echo json_encode($returnJs);
 		$conn->close();

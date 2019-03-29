@@ -66,7 +66,7 @@ th {
 									</div>
 								</div>
 								<br>
-								<div class="row">
+								<!--div class="row">
 									<div class="col-md-6 col-md-offset-3">
 										<div class="input-group">
 									    <input type="text" style="text-align: center" class="form-control" placeholder="Generar url" id="url_input">
@@ -77,7 +77,7 @@ th {
 									    </div>
 									  </div>
 									</div>
-								</div>
+								</div-->
 								<br>
 								<div class="row">
 									<div class="col-md-6 col-md-offset-3">
@@ -102,7 +102,7 @@ th {
 									<th style="width:10%;">Fecha</th>
 									<th style="width:10%;">C&oacute;digo</th>
 									<th style="width:40%;">Nombre</th>
-									<th style="width:20%;">Foto(s)</th>
+									<!--th style="width:20%;">Foto(s)</th-->
 									<th style="width:10%;">Registros</th>
 								  </tr>
 								</thead>

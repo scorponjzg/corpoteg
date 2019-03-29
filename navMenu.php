@@ -26,6 +26,8 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]))
           <ul class="dropdown-menu">
             <li><a href="asistencia.php">Asitencias</a></li>
             <li><a href="servicio.php">Servicios</a></li>
+            <li><a href="turno.php">Turno</a></li>
+            <li><a href="requerimiento.php">Requerimiento de servicio</a></li>
            
             
           </ul>

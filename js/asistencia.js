@@ -46,6 +46,7 @@ function obtener_asistencia(){
 		var servicio = $("#servicio").val();
 		var foto =  "";
 		var asistencia = "";
+		var registro;
 
 		$.ajax({
 			method: "POST",
@@ -55,20 +56,31 @@ function obtener_asistencia(){
 		}).done(function(data){
 			
 			var resultado = "";
-			console.log(data);
+			var cambio_fecha = "";
+			//console.log(data);
 			data.fecha.forEach(function(entry){
+				if(cambio_fecha != entry.fecha && cambio_fecha != ""){
+
+					resultado += '<tr>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td></tr>';
+				}
+				cambio_fecha = entry.fecha;
 				resultado += '<tr>'+
 						'<td>'+entry.fecha+'</td>'+
 						'<td>'+entry.codigo+'</td>'+
 						'<td>'+entry.nombre+'</td>';
 				entry.registros.forEach(function(acceso){
-				
+					registro = acceso.accion == 'E' ? 'blue': 'green';
+
 					foto += '<img src="php/fotosAsistencia/'+acceso.foto+'" alt="Foto" class="img-rounded" style="width:60px">';
-					asistencia += '<span>'+acceso.accion+'-'+acceso.registro+'</span><br>';
+					asistencia += '<span style="color:'+registro+'">'+acceso.accion+'-'+acceso.registro+'</span><br>';
 
 				});
-				resultado += '<td>'+ foto +'</td>'+
-						'<td>'+asistencia+'</td>'+
+				//'<td>'+ foto +'</td>'+
+					resultado += '<td>'+asistencia+'</td>'+
 						'</tr>';
 					foto="";
 					asistencia = "";

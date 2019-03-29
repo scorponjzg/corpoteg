@@ -10,7 +10,7 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]) 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Servicios</title>
+  <title>turno</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="img/favicon.png">
@@ -18,7 +18,7 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]) 
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
   <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/servicio.js"></script>
+  <script src="js/turno.js"></script>
 </head>
 <body> 
  <style>
@@ -46,7 +46,7 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]) 
 						
 							<div style="text-align: center; margin-top: 12px" id="boton_nuevo">
 								<?php if($_SESSION['tipo_corpoteg'] == 1){ ?>
-									<button id="nuevo" type="button" class="btn btn-success" style="width:40%;text-align:center; color: white; background:rgb(32,190,198);" onclick="window.location.replace('nuevo_servicio.php')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo servicio</button>
+									<button id="nuevo" type="button" class="btn btn-success" style="width:40%;text-align:center; color: white; background:rgb(32,190,198);" onclick="window.location.replace('nuevo_turno.php')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo turno</button>
 									<br>
 									<br>
 								<?php }?>
@@ -65,7 +65,7 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]) 
 							<table class="table table-bordered"style="margin: 20px auto;width:80%;" id="servicio" name="servicio">
 								<thead >
 								  <tr class="info">
-									<th style="width:80%;text-align: center;">Nombre</th>
+									<th style="width:80%;text-align: center">Nombre</th>
 									
 									<?php if($_SESSION['tipo_corpoteg'] == 1){ ?>
 										<th style="width:10%;">Detalles</th>

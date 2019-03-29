@@ -21,7 +21,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		$id = isset($_POST['id']) ? $conn->real_escape_string($_POST['id']) : '';
 		
 		
-			$sql = "UPDATE servicio SET activo = 0 WHERE pk_servicio={$id}";
+			$sql = "UPDATE turno SET activo = 0 WHERE pk_turno={$id}";
 	
 			$conn->query($sql);
 			if($conn->affected_rows == 1){

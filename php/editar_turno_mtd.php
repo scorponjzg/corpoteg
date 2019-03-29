@@ -7,7 +7,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		require_once 'configMySQL.php';
 		
 		$returnJs = [];
-		$returnJs['ingresado'] = 'Por el momento no se encuentra en la funcionalidad activa, intente más tarde.';
+		$returnJs['editado'] = 'Por el momento no se encuentra en la funcionalidad activa, intente en otro momento.';
 		$noCambios = 0;
 		$conn = new mysqli($mysql_config['host'], $mysql_config['user'], $mysql_config['pass'], $mysql_config['db']);
 		
@@ -17,19 +17,25 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		}
 		
 		$conn -> set_charset('utf8');
-		
+
 		$id = isset($_POST['id']) ? $conn->real_escape_string($_POST['id']) : '';
+		$turno = isset($_POST['turno']) ? $conn->real_escape_string($_POST['turno']) : '';
 		
-		
-			$sql = "UPDATE servicio SET activo = 0 WHERE pk_servicio={$id}";
-	
-			$conn->query($sql);
+			
+			$sql = "UPDATE turno SET turno='{$turno}' WHERE pk_turno={$id}";
+				
+			$noCambios = $conn->query($sql);
+			//error_log($sql."---".$noCambios);
 			if($conn->affected_rows == 1){
 			
-				$returnJs['eliminado'] = 'true';
+				$returnJs['editado'] = 'true';
 			
+			} else {
+
+				if($noCambios == 1){
+					$returnJs['editado']="No realizó ningún cambio.";
+				}
 			}
-		
 		
 		echo json_encode($returnJs);
 		$conn->close();

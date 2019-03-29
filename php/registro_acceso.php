@@ -55,8 +55,6 @@ if($_GET['p']==$ACCESSKEY){
 	
 		$sql = "INSERT INTO asistencia (codigo_usuario, nombre, accion_registro, fk_usuario, fk_servicio, medio_registro) VALUES('$codigo','{$usuario}',{$entrada},{$responsable},(SELECT pk_servicio FROM servicio WHERE servicio='{$ubicacion}' && activo=1 LIMIT 1),'{$medio}') ; ";
 		
-		//error_log($sql);
-		
 		$conn->query($sql);
 
 		if($conn->affected_rows == 1){
