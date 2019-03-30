@@ -46,7 +46,7 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]) 
 						
 							<div style="text-align: center; margin-top: 12px" id="boton_nuevo">
 								<?php if($_SESSION['tipo_corpoteg'] == 1){ ?>
-									<button id="nuevo" type="button" class="btn btn-success" style="width:40%;text-align:center; color: white; background:rgb(32,190,198);" onclick="window.location.replace('nuevo_turno.php')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo requerimiento</button>
+									<button id="nuevo" type="button" class="btn btn-success" style="width:40%;text-align:center; color: white; background:rgb(32,190,198);" onclick="window.location.replace('nuevo_requerimiento.php')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo requerimiento</button>
 									<br>
 									<br>
 								<?php }?>
@@ -65,8 +65,14 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]) 
 							<table class="table table-bordered"style="margin: 20px auto;width:80%;" id="servicio" name="servicio">
 								<thead >
 								  <tr class="info">
-									<th style="width:80%;text-align: center">Nombre</th>
-									<th style="width:80%;text-align: center">turno</th>
+									<th style="width:30%;text-align: center">Servicio</th>
+									<th style="width:10%;text-align: center">turno</th>
+									<th style="width:10%;text-align: center">Personal</th>
+									<th style="width:10%;text-align: center">Entrada</th>
+									<th style="width:10%;text-align: center">Salida</th>
+									<th style="width:10%;text-align: center">Tolerancia entrada</th>
+									<th style="width:10%;text-align: center">Tolerancia salida</th>
+									
 									
 									<?php if($_SESSION['tipo_corpoteg'] == 1){ ?>
 										<th style="width:10%;">Detalles</th>
