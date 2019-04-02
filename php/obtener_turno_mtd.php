@@ -24,7 +24,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 		
 		while($resultado = $result->fetch_assoc()){
 			
-			$returnJs['servicio'][]= $resultado;
+			$returnJs['turno'][]= $resultado;
 		}
 		if($_SESSION['tipo_corpoteg'] == 1){
 
@@ -33,7 +33,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 		
 	} else {
 		
-		$returnJs['servicio'][] = array("nombre" => "No hay turnos registrados");
+		$returnJs['turno'][] = array("nombre" => "No hay turnos registrados");
 	}
 	$result->free();
 	

@@ -8,7 +8,7 @@ function obtener_turno(){
 		}).done(function(data){
 			//console.log(data);
 			var resultado = "";
-			data.servicio.forEach(function(entry){
+			data.turno.forEach(function(entry){
 			resultado += '<tr><td>'+entry.nombre+'</td>';
 						if(data.show == 'true'){
 							resultado += '<td><a href="#" class="btn btn-default ver" role="button" data-id="'+entry.id+'">'+
@@ -17,7 +17,7 @@ function obtener_turno(){
 						resultado += '</tr>';
 			
 		    } );
-		    console.log(resultado);
+		    //console.log(resultado);
 			$('#get_servicio').empty();
 			$('#get_servicio').append(resultado);
 			$(".ver").on("click",verDetalle);

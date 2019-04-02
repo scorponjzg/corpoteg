@@ -31,40 +31,40 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]) 
  </style>
 <div class="container">
   <?php include 'navMenu.php'?>
-  <div class="panel panel-default" style="width:50%; margin: 80px auto; text-align:center">
+  <div class="panel panel-default" style="width:50%; margin: 80px auto; text-align:center;">
     <form action="#" style="margin: 10px;" id='formulario' autocomplete="off">
 		<div class="well">		
 			<div class="form-group">		 
 				<label for="servicio">*Servicio:</label>
 				<select class="form-control" id="servicio" name="servicio" placeholder="Ingrese un nombre del turno">
-          <option>No hay servicios registrados</option>    
+          <option values="0">Seleccione un servicio</option>    
         </select>
 			</div>
       <div class="form-group">     
         <label for="turno">*Turno:</label>
         <select class="form-control" id="turno" name="turno" placeholder="Ingrese un nombre del turno">
-          <option>No hay turnos registrados</option>  
+          <option values="0">Seleccione un turno</option>  
         </select>
       </div>
       <div class="form-group">     
-        <label for="nombre">*Personal requerido:</label>
-        <input type="number" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el personal solicitado">
+        <label for="personal">*Personal requerido:</label>
+        <input type="number" class="form-control" id="personal" name="personal" min="1" placeholder="Ingrese la cantiad personal solicitado">
       </div>
       <div class="form-group">     
-        <label for="nombre">*Hora entrada:</label>
-        <input type="time" class="form-control" id="nombre" name="nombre" placeholder="Ingrese un nombre del turno">
+        <label for="entrada">*Hora entrada:</label>
+        <input type="time" class="form-control" id="entrada" name="entrada" placeholder="Ingrese un nombre del turno">
       </div>
       <div class="form-group">     
-        <label for="nombre">*Hora salida:</label>
-        <input type="time" class="form-control" id="nombre" name="nombre" placeholder="Ingrese un nombre del turno">
+        <label for="salida">*Hora salida:</label>
+        <input type="time" class="form-control" id="salida" name="salida" placeholder="Ingrese un nombre del turno">
       </div>
       <div class="form-group">     
-        <label for="nombre">*Tolerancia entrada:</label>
-        <input type="time" class="form-control" id="nombre" name="nombre" placeholder="Ingrese un nombre del turno">
+        <label for="te">*Tolerancia entrada:</label>
+        <input type="time" class="form-control" id="te" name="te" placeholder="Ingrese un nombre del turno">
       </div>
       <div class="form-group">     
-        <label for="nombre">*Tolerancia salida:</label>
-        <input type="time" class="form-control" id="nombre" name="nombre" placeholder="Ingrese un nombre del turno">
+        <label for="ts">*Tolerancia salida:</label>
+        <input type="time" class="form-control" id="ts" name="ts" placeholder="Ingrese un nombre del turno">
       </div>
 
 			 

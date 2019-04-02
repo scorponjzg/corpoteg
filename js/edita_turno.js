@@ -47,7 +47,7 @@ function eliminar(){
 		data: {"id":$("#clave").val()}
 
 	}).done(function(data){
-		console.log(data);
+		//console.log(data);
 		
 		if(data.eliminado == 'true'){
 			alert("Turno eliminado correctamente");
