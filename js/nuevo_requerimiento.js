@@ -53,30 +53,31 @@ function obtener_turno(){
 	
 }
 function valdaForm(){
-	if(){
 
-	} else if ($("#servicio").val()==''){
+	if ($("#servicio").val()=='0'){
 		alert("Debe seleccionar un servico");
 		$("#servicio").focus();
-	}else if ($("#turno").val()==''){
+	}else if ($("#turno").val()=='0'){
 		alert("Debe seleccionar un turno");
 		$("#turno").focus();
 	}else if ($("#personal").val()==''){
 		alert("Debe ingresar la cantidad de personal solicitado");
-		$("#servicio").focus();
+		$("#personal").focus();
 	}else if ($("#entrada").val()==''){
 		alert("Debe ingresar una hora de entrada");
-		$("#servicio").focus();
+		$("#entrada").focus();
 	}else if ($("#salida").val()==''){
-		alert("Debe seleccionar un servico");
-		$("#servicio").focus();
+		alert("Debe ingresar una hora de salida");
+		$("#salida").focus();
 	}else if ($("#te").val()==''){
-		alert("Debe seleccionar un servico");
-		$("#servicio").focus();
+		alert("Debe ingresar una hora de tolerancia de entrada");
+		$("#te").focus();
 	}
 	else if ($("#ts").val()==''){
-		alert("Debe seleccionar un servico");
-		$("#servicio").focus();
+		alert("Debe ingresar una hora de tolerancia de salida");
+		$("#ts").focus();
+	}else{
+		return true;
 	}
 }
 $(function(){
@@ -89,8 +90,8 @@ $(function(){
 	$("#formulario").submit(function(event){
 		event.preventDefault();
 		var servicio = $(this).serialize();
-		console.log(servicio);
 		if(valdaForm()){	
+		console.log(servicio);
 				
 				$.ajax({
 				method: "POST",

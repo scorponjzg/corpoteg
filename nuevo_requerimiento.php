@@ -37,13 +37,13 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]) 
 			<div class="form-group">		 
 				<label for="servicio">*Servicio:</label>
 				<select class="form-control" id="servicio" name="servicio" placeholder="Ingrese un nombre del turno">
-          <option values="0">Seleccione un servicio</option>    
+          <option value="0">Seleccione un servicio</option>    
         </select>
 			</div>
       <div class="form-group">     
         <label for="turno">*Turno:</label>
         <select class="form-control" id="turno" name="turno" placeholder="Ingrese un nombre del turno">
-          <option values="0">Seleccione un turno</option>  
+          <option value="0">Seleccione un turno</option>  
         </select>
       </div>
       <div class="form-group">     
