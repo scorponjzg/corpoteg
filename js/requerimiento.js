@@ -37,7 +37,7 @@ function obtener_requerimiento(){
 }
 function verDetalle(){
   
-	window.location.replace("?"+btoa("turno="+$(this).attr("data-id")));
+	window.location.replace("editar_requerimiento.php?"+btoa("requerimiento="+$(this).attr("data-id")));
 }
 
 function responsive_menu(){

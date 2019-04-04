@@ -32,7 +32,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 		
 	} else {
 		
-		$returnJs['servicio'][] = array("nombre" => "No hay requerimientos registrados");
+		$returnJs['servicio'][] = array("servicio" => "No hay requerimientos registrados");
 	}
 	$result->free();
 	

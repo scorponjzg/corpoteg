@@ -17,8 +17,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		}
 		
 		$conn -> set_charset('utf8');
-
-		$id_estudio = isset($_POST['estudio']) ? $conn->real_escape_string($_POST['estudio']) : '';
+		
 		$id = isset($_POST['id']) ? $conn->real_escape_string($_POST['id']) : '';
 		$servicio = isset($_POST['servicio']) ? $conn->real_escape_string($_POST['servicio']) : '';
 		

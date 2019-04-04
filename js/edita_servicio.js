@@ -74,7 +74,7 @@ function editarServicio(){
 			alert(data.editado);
 		}
 	}).fail(function(error){
-		consolo.log(error.responseText);
+		console.log(error.responseText);
 	});
 }
 $(function(){

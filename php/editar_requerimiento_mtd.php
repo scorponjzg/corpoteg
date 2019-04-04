@@ -18,13 +18,18 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		
 		$conn -> set_charset('utf8');
 
-		$id_estudio = isset($_POST['estudio']) ? $conn->real_escape_string($_POST['estudio']) : '';
-		$id = isset($_POST['id']) ? $conn->real_escape_string($_POST['id']) : '';
+		$id = isset($_POST['pk']) ? $conn->real_escape_string($_POST['pk']) : '';
 		$servicio = isset($_POST['servicio']) ? $conn->real_escape_string($_POST['servicio']) : '';
+		$turno = isset($_POST['turno']) ? $conn->real_escape_string($_POST['turno']) : '';
+		$entrada = isset($_POST['entrada']) ? $conn->real_escape_string($_POST['entrada']) : '';
+		$salida = isset($_POST['salida']) ? $conn->real_escape_string($_POST['salida']) : '';
+		$te = isset($_POST['te']) ? $conn->real_escape_string($_POST['te']) : '';
+		$ts = isset($_POST['ts']) ? $conn->real_escape_string($_POST['ts']) : '';
+		$personal = isset($_POST['personal']) ? $conn->real_escape_string($_POST['personal']) : '';
 		
 			
-			$sql = "UPDATE servicio SET servicio='{$servicio}' WHERE pk_servicio={$id}";
-				
+			$sql = "UPDATE vacante SET vacante='{$personal}', fk_servicio = {$servicio}, fk_turno = {$turno}, hora_entrada = '{$entrada}', hora_salida = '{$salida}', tolerancia_entrada = '{$te}', tolerancia_salida = '{$ts}' WHERE pk_vacante={$id}";
+				error_log($sql);
 			$noCambios = $conn->query($sql);
 			//error_log($sql."---".$noCambios);
 			if($conn->affected_rows == 1){

@@ -1,7 +1,8 @@
 function getQueryVariable(variable) {
+
    var query = window.location.search.substring(1);
    var vars = atob(query).split("&");
-  
+
   for (var i=0; i < vars.length; i++) {
        var pair = vars[i].replace('=','/').split("/");
       
@@ -11,27 +12,103 @@ function getQueryVariable(variable) {
    }
    return false;
 }
+function valdaForm(){
 
+	if ($("#servicio").val()=='0'){
+		alert("Debe seleccionar un servico");
+		$("#servicio").focus();
+	}else if ($("#turno").val()=='0'){
+		alert("Debe seleccionar un turno");
+		$("#turno").focus();
+	}else if ($("#personal").val()==''){
+		alert("Debe ingresar la cantidad de personal solicitado");
+		$("#personal").focus();
+	}else if ($("#entrada").val()==''){
+		alert("Debe ingresar una hora de entrada");
+		$("#entrada").focus();
+	}else if ($("#salida").val()==''){
+		alert("Debe ingresar una hora de salida");
+		$("#salida").focus();
+	}else if ($("#te").val()==''){
+		alert("Debe ingresar una hora de tolerancia de entrada");
+		$("#te").focus();
+	}
+	else if ($("#ts").val()==''){
+		alert("Debe ingresar una hora de tolerancia de salida");
+		$("#ts").focus();
+	}else{
+		return true;
+	}
+}
 function redireccion(){
 
-	window.location.href="turno.php";
+	window.location.href="requerimiento.php";
 	
 }
+function obtener_servicio(){
+	
+		$.ajax({
+			method:"POST",
+			url: "php/obtener_servicio_mtd.php",
+			dataType: "json"
+		}).done(function(data){
+			//console.log(data);
+			var servicio = "";
+			data.servicio.forEach(function(entry){
+				servicio += '<option value="'+entry.pk+'">'+entry.servicio+'</option>';
+			});
+			//$("#servicio").empty(servicio);
+			$("#servicio").append(servicio);
 
-function obtenerTurno(){
-	var turno = getQueryVariable('turno');
+			obtener_turno();
+	
+		}).fail(function(error){
+			alert(error.responseText);
+		});
+	
+}
+function obtener_turno(){
+	
+		$.ajax({
+			method:"POST",
+			url: "php/obtener_turno_mtd.php",
+			dataType: "json"
+		}).done(function(data){
+			//console.log(data);
+			var turno = "";
+			data.turno.forEach(function(entry){
+				turno += '<option value="'+entry.id+'">'+entry.nombre+'</option>';
+			});
+			//$("#turno").empty(turno);
+			$("#turno").append(turno);
+
+			detalleRequerimiento();
+
+		}).fail(function(error){
+			alert(error.responseText);
+		});
+	
+}
+function detalleRequerimiento(){
+	var requerimiento = getQueryVariable('requerimiento');
 	
 	$.ajax({
 
 		method: "POST",
 		url:"php/detalle_requerimiento_mtd.php",
 		dataType: "json",
-		data: {"turno":turno}
+		data: {"requerimiento":requerimiento}
 
 	}).done(function(data){
-		//console.log(data);
-		$("#nombre").val(data.turno.turno);
-		$("#clave").val(data.turno.id);
+		
+		 $("#pk").val(data.requerimiento.id);
+		 $("#servicio").val(data.requerimiento.servicio);
+		 $("#turno").val(data.requerimiento.turno);
+		 $("#personal").val(data.requerimiento.requeridos);
+		 $("#entrada").val(data.requerimiento.entrada);
+		 $("#salida").val(data.requerimiento.salida);
+		 $("#te").val(data.requerimiento.te);
+		 $("#ts").val(data.requerimiento.ts);
 		
 	}).fail(function(error){
 		console.log(error.responseText);
@@ -39,19 +116,19 @@ function obtenerTurno(){
 	});
 }
 function eliminar(){
+	console.log("eliminat");
 	$.ajax({
 
 		method: "POST",
 		url:"php/eliminar_requerimiento_mtd.php",
 		dataType: "json",
-		data: {"id":$("#clave").val()}
+		data: {"id":$("#pk").val()}
 
 	}).done(function(data){
-		console.log(data);
 		
 		if(data.eliminado == 'true'){
-			alert("Turno eliminado correctamente");
-			window.location.href="turno.php";
+			alert("Requerimiento eliminado correctamente");
+			window.location.href="requerimiento.php";
 		}
 		
 	}).fail(function(error){
@@ -60,30 +137,36 @@ function eliminar(){
 	});
 }
 
-function editarTurno(){
-	$.ajax({
-		method: "POST",
-		url:"php/editar_requerimiento_mtd.php",
-		dataType: "json",
-		data: {"id":$("#clave").val(),"turno":$("#nombre").val()}
-	}).done(function(data){
-		if(data.editado == 'true'){
-			alert("Turno editado correctamente");
-			window.location.href="turno.php";
-		} else {
-			alert(data.editado);
-		}
-	}).fail(function(error){
-		consolo.log(error.responseText);
-	});
-}
+
 $(function(){
 
-	obtenerTurno();
+	$("#formulario").submit(function(event){
+			event.preventDefault();
+		if(valdaForm()){
+			var requerimiento = $(this).serialize();
+			console.log(requerimiento);
+			$.ajax({
+				method: "POST",
+				url:"php/editar_requerimiento_mtd.php",
+				dataType: "json",
+				data: requerimiento
+			}).done(function(data){
+				if(data.editado == 'true'){
+					alert("Requerimiento editado correctamente");
+					window.location.href="requerimiento.php";
+				} else {
+					alert(data.editado);
+				}
+			}).fail(function(error){
+				console.log(error.responseText);
+			});
+		}
+	});
+	obtener_servicio();
 	
 	$("#cancelar").on("click",redireccion);
 	$("#eliminar").on("click",eliminar);
-	$("#editar").on("click",editarTurno);
+	
 	
 	
 	
