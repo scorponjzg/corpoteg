@@ -102,7 +102,7 @@ $(function(){
 					console.log(entry);
 					if(entry.ingresado == 'true'){
 						alert("Servicio creado correctamente.");
-						window.location.replace("servicio.php");
+						window.location.replace("requerimiento.php");
 					} else {
 						alert(entry.ingresado);
 					}

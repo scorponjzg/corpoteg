@@ -100,6 +100,7 @@ th {
 								<thead >
 								  <tr class="info">
 									<th style="width:10%;">Fecha</th>
+									<th style="width:10%;">Turno</th>
 									<th style="width:10%;">C&oacute;digo</th>
 									<th style="width:40%;">Nombre</th>
 									<!--th style="width:20%;">Foto(s)</th-->

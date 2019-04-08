@@ -36,7 +36,10 @@ function obtener_servicio(){
 		});
 	
 }
+function hora_a_enteros(){
 
+	
+}
 function obtener_asistencia(){
     
 	if(valida_formulario() && $("#fecha").val() !='0'){
@@ -57,36 +60,43 @@ function obtener_asistencia(){
 			
 			var resultado = "";
 			var cambio_fecha = "";
-			//console.log(data);
-			data.fecha.forEach(function(entry){
-				if(cambio_fecha != entry.fecha && cambio_fecha != ""){
+			var turno = "";
+			var temporal = "";
+			var asistio = 0;
+			console.log(data);
+			data.requerimiento.forEach(function(entrada){
+				turno = entrada.turno;
+				data.fecha.forEach(function(entry){
+					if(cambio_fecha != entry.fecha && cambio_fecha != ""){
 
-					resultado += '<tr>'+
-						'<td></td>'+
-						'<td></td>'+
-						'<td></td>'+
-						'<td></td></tr>';
-				}
-				cambio_fecha = entry.fecha;
-				resultado += '<tr>'+
-						'<td>'+entry.fecha+'</td>'+
-						'<td>'+entry.codigo+'</td>'+
-						'<td>'+entry.nombre+'</td>';
-				entry.registros.forEach(function(acceso){
-					registro = acceso.accion == 'E' ? 'blue': 'green';
+						temporal += '<tr>'+
+							'<td></td>'+
+							'<td></td>'+
+							'<td></td>'+
+							'<td></td></tr>';
+					}
+					cambio_fecha = entry.fecha;
+					temporal += '<tr>'+
+							'<td>'+entry.fecha+'</td>'+
+							'<td>'+turno+'</td>'+
+							'<td>'+entry.codigo+'</td>'+
+							'<td>'+entry.nombre+'</td>';
+					entry.registros.forEach(function(acceso){
+						registro = acceso.accion == 'E' ? 'blue': 'green';
 
-					foto += '<img src="php/fotosAsistencia/'+acceso.foto+'" alt="Foto" class="img-rounded" style="width:60px">';
-					asistencia += '<span style="color:'+registro+'">'+acceso.accion+'-'+acceso.registro+'</span><br>';
+						foto += '<img src="php/fotosAsistencia/'+acceso.foto+'" alt="Foto" class="img-rounded" style="width:60px">';
+						asistencia += '<span style="color:'+registro+'">'+acceso.accion+'-'+acceso.registro+'</span><br>';
 
-				});
-				//'<td>'+ foto +'</td>'+
-					resultado += '<td>'+asistencia+'</td>'+
-						'</tr>';
-					foto="";
-					asistencia = "";
-		    } );
-		$("#reporte").empty();
-		$("#reporte").append(resultado);
+					});
+					//'<td>'+ foto +'</td>'+
+						temporal += '<td>'+asistencia+'</td>'+
+							'</tr>';
+						foto="";
+						asistencia = "";
+			    } );
+			});
+			$("#reporte").empty();
+			$("#reporte").append(resultado);
 			$('#asitencia').empty();
 			$('#asitencia').append(resultado);
 

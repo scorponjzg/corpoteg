@@ -69,7 +69,7 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]) 
 
 			 
 			  <button type="commit" class="btn btn-info " style="margin-right:25px;" >Guardar</button>
-			  <button type="button" class="btn btn-danger " style="margin: 0 auto;" onclick="window.location.replace('servicio.php');">Cancelar</button>
+			  <button type="button" class="btn btn-danger " style="margin: 0 auto;" onclick="window.location.replace('requerimiento.php');">Cancelar</button>
 			  <br>
 			  <br>
 		</div>

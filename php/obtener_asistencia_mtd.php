@@ -55,6 +55,22 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 			
 		}
 		
+		$sql = "SELECT  t.turno, v.vacante AS personal, v.hora_entrada AS entrada, v.hora_salida AS salida, v.tolerancia_entrada AS te, v.tolerancia_salida AS ts from vacante AS v INNER JOIN turno AS t ON t.pk_turno = v.fk_turno WHERE  v.fk_servicio = {$servicio} && v.activo=1 ORDER BY entrada DESC;";
+						
+			$result_acceso1 = $conn->query($sql);
+			
+			if ($result_acceso1->num_rows > 0) {
+				while($resultado2 = $result_acceso1->fetch_assoc()){
+
+					$returnJs['requerimiento'][]= $resultado2;
+
+				}
+				$result_acceso1 ->free();
+
+			} else{
+		
+				$returnJs['fecha'][]= "Debe registrar al menos un requerimiento del servicio";
+			}
 		
 	} else{
 		
