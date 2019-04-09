@@ -41,8 +41,8 @@ if($_POST['p']==$ACCESSKEY){
 	$ubicacion = isset($datos['ubicacion']) && $datos['ubicacion'] != '0' ? $conn->real_escape_string($datos['ubicacion']) : 1;
 	$medio = isset($datos['medio']) ? $conn->real_escape_string($datos['medio']) : '';
 
-
-	//La app puede mandar como código el mismo valor que el nombre de usuario por lo que se valida que no sea sí
+	error_log(print_r($datos,true));
+		//La app puede mandar como código el mismo valor que el nombre de usuario por lo que se valida que no sea sí
 	$codigo = isset($datos['codigo']) && $datos['codigo'] != $usuario ? $conn->real_escape_string($datos['codigo']) : '';
 	
 		$sql = "INSERT INTO asistencia (codigo_usuario, nombre, accion_registro, fk_usuario, fk_servicio, medio_registro) VALUES('$codigo','{$usuario}',{$entrada},{$responsable},(SELECT pk_servicio FROM servicio WHERE servicio='{$ubicacion}' && activo=1 LIMIT 1),'{$medio}') ; ";

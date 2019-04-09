@@ -36,9 +36,11 @@ function obtener_servicio(){
 		});
 	
 }
-function hora_a_enteros(){
+function hora_a_enteros(hora){
 
+	var numero = hora.split(":");
 	
+	return parseFloat(numero[0]+"."+numero[1]);
 }
 function obtener_asistencia(){
     
@@ -50,6 +52,7 @@ function obtener_asistencia(){
 		var foto =  "";
 		var asistencia = "";
 		var registro;
+		var listaHorario = 0;
 
 		$.ajax({
 			method: "POST",
@@ -64,8 +67,8 @@ function obtener_asistencia(){
 			var temporal = "";
 			var asistio = 0;
 			console.log(data);
-			data.requerimiento.forEach(function(entrada){
-				turno = entrada.turno;
+			data.requerimiento.forEach(function(turno){
+				
 				data.fecha.forEach(function(entry){
 					if(cambio_fecha != entry.fecha && cambio_fecha != ""){
 
@@ -78,12 +81,32 @@ function obtener_asistencia(){
 					cambio_fecha = entry.fecha;
 					temporal += '<tr>'+
 							'<td>'+entry.fecha+'</td>'+
-							'<td>'+turno+'</td>'+
+							'<td>'+turno.turno+'</td>'+
 							'<td>'+entry.codigo+'</td>'+
 							'<td>'+entry.nombre+'</td>';
 					entry.registros.forEach(function(acceso){
-						registro = acceso.accion == 'E' ? 'blue': 'green';
 
+						if(acceso.accion == 'E'){
+
+							if(hora_a_enteros(acceso.registro) >= hora_a_enteros(turno.entrada)-1 && hora_a_enteros(acceso.registro) <= hora_a_enteros(turno.te)+1 ){
+								asistio = 1;
+								registro = "blue";
+							}else{
+								registro = "red";
+							}
+
+						}else{
+								if(hora_a_enteros(acceso.registro) >= hora_a_enteros(turno.ts)-1 && hora_a_enteros(acceso.registro) <= hora_a_enteros(turno.salida)+1 ){
+									asistio = 1;
+								registro = "green";
+							}else{
+								registro = "red";
+							}
+
+
+						}
+						
+						//console.log(hora_a_enteros(acceso.registro));
 						foto += '<img src="php/fotosAsistencia/'+acceso.foto+'" alt="Foto" class="img-rounded" style="width:60px">';
 						asistencia += '<span style="color:'+registro+'">'+acceso.accion+'-'+acceso.registro+'</span><br>';
 
@@ -93,7 +116,12 @@ function obtener_asistencia(){
 							'</tr>';
 						foto="";
 						asistencia = "";
-			    } );
+						if(asistio == 1){
+							resultado += temporal;
+						}
+						asistio = 0;
+						temporal = "";
+			    });
 			});
 			$("#reporte").empty();
 			$("#reporte").append(resultado);
