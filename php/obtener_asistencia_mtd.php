@@ -22,58 +22,74 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	$f_final = isset($_POST['f_final']) ? $conn->real_escape_string($_POST['f_final']) : '';
 
 	if($f_inicial!='' && $f_final != '' ){
-		$fecha = " && SUBSTRING_INDEX(`hora_registro`, ' ', 1) >='".$f_inicial."' && SUBSTRING_INDEX(`hora_registro`, ' ', 1) <='".$f_final."'";
+		$fecha = " && SUBSTRING_INDEX(hora_registro, ' ', 1) >='".$f_inicial."' && SUBSTRING_INDEX(hora_registro, ' ', 1) <='".$f_final."'";
 	} else if($f_final==''){
-		$fecha = " && SUBSTRING_INDEX(`hora_registro`, ' ', 1) >='".$f_inicial."'";
+		$fecha = " && SUBSTRING_INDEX(hora_registro, ' ', 1) >='".$f_inicial."'";
 	} else{
-		$fecha = " && SUBSTRING_INDEX(`hora_registro`, ' ', 1) <='".$f_final."'";
+		$fecha = " && SUBSTRING_INDEX(hora_registro, ' ', 1) <='".$f_final."'";
 	}	
 
-	$sql = "SELECT  SUBSTRING_INDEX(`hora_registro`, ' ', 1) AS fecha, a.nombre,IFNULL(a.codigo_usuario,'No registrado') as codigo, s.servicio from asistencia as a INNER JOIN servicio as s ON s.pk_servicio=a.fk_servicio WHERE  fk_servicio = {$servicio} ".$fecha." group by nombre, fecha order by fecha DESC;";
-				
+	$sql = "SELECT  SUBSTRING_INDEX(hora_registro, ' ', 1) AS fecha from asistencia WHERE  fk_servicio = {$servicio} ".$fecha." group by fecha order by fecha ;";
 	$result = $conn->query($sql);
 	
 	if ($result->num_rows > 0) {
-		
+
 		while($resultado = $result->fetch_assoc()){
-		$registro[] = [];
-			
-			$sql = "SELECT SUBSTRING_INDEX(`hora_registro`, ' ', -1) as registro, IF(accion_registro = 1,'E','S') AS accion, IFNULL(foto_asistencia,'descarga.png') AS foto  from asistencia WHERE nombre='{$resultado['nombre']}' && fk_servicio = {$servicio} && SUBSTRING_INDEX(`hora_registro`, ' ', 1) = '{$resultado['fecha']}';";
-			
-			$result_acceso = $conn->query($sql);
-			if ($result_acceso->num_rows > 0) {
-				while($resultado1 = $result_acceso->fetch_assoc()){
-
-					$registro['registros'][]= $resultado1;
-
-				}
-				$result_acceso ->free();
-			}
-			
-			$returnJs['fecha'][]= array_merge($resultado,$registro);
-			unset($registro);
-			
-		}
-		
-		$sql = "SELECT  t.turno, v.vacante AS personal, v.hora_entrada AS entrada, v.hora_salida AS salida, v.tolerancia_entrada AS te, v.tolerancia_salida AS ts from vacante AS v INNER JOIN turno AS t ON t.pk_turno = v.fk_turno WHERE  v.fk_servicio = {$servicio} && v.activo=1 ORDER BY entrada DESC;";
+			$usuarios = [];
+			$sql = "SELECT  a.nombre, IFNULL(a.codigo_usuario,'No registrado') as codigo, s.servicio from asistencia as a INNER JOIN servicio as s ON s.pk_servicio=a.fk_servicio WHERE  a.fk_servicio = {$servicio} &&  SUBSTRING_INDEX(hora_registro, ' ', 1) = '{$resultado['fecha']}' GROUP BY nombre ORDER BY nombre ;";
 						
-			$result_acceso1 = $conn->query($sql);
+			$result1 = $conn->query($sql);
 			
-			if ($result_acceso1->num_rows > 0) {
-				while($resultado2 = $result_acceso1->fetch_assoc()){
+			if ($result1->num_rows > 0) {
+				//$fecha['fecha'][] = $resultado; 
+				while($resultado1 = $result1->fetch_assoc()){
+				$registro = [];
+					
+					$sql = "SELECT SUBSTRING_INDEX(`hora_registro`, ' ', -1) as registro, IF(accion_registro = 1,'E','S') AS accion, IFNULL(foto_asistencia,'descarga.png') AS foto  from asistencia WHERE nombre='{$resultado1['nombre']}' && fk_servicio = {$servicio} && SUBSTRING_INDEX(`hora_registro`, ' ', 1) = '{$resultado['fecha']}';";
+					//error_log($sql);
+					
+					$result_acceso = $conn->query($sql);
+					if ($result_acceso->num_rows > 0) {
+						while($resultado2 = $result_acceso->fetch_assoc()){
 
-					$returnJs['requerimiento'][]= $resultado2;
+							$registro['registros'][]= $resultado2;
 
+						}
+						$result_acceso ->free();
+					}
+					
+					$usuarios['usuarios'][] = array_merge($resultado1,$registro);
+					unset($registro);
+					
 				}
-				$result_acceso1 ->free();
+				//error_log(print_r($resultado,true));
+				//error_log(print_r($usuarios,true));
+				$returnJs['fecha'][] = array_merge($resultado,$usuarios);
+				unset($usuarios);
+				$sql = "SELECT  t.turno, v.vacante AS personal, v.hora_entrada AS entrada, v.hora_salida AS salida, v.tolerancia_entrada AS te, v.tolerancia_salida AS ts from vacante AS v INNER JOIN turno AS t ON t.pk_turno = v.fk_turno WHERE  v.fk_servicio = {$servicio} && v.activo=1 ORDER BY v.pk_vacante ;";
+								
+					$result_acceso1 = $conn->query($sql);
+					
+					if ($result_acceso1->num_rows > 0) {
+						while($resultado2 = $result_acceso1->fetch_assoc()){
 
-			} else{
-		
-				$returnJs['fecha'][]= "Debe registrar al menos un requerimiento del servicio";
+							$returnJs['requerimiento'][]= $resultado2;
+
+						}
+						$result_acceso1 ->free();
+
+					} else {
+				
+						$returnJs['fecha'][]= "Debe registrar al menos un requerimiento del servicio";
+					}
+				
+			} else {
+				
+				$returnJs['fecha'][]= "No hay fechas registadas";
 			}
-		
-	} else{
-		
+		}
+    } else {
+				
 		$returnJs['fecha'][]= "No hay fechas registadas";
 	}
 	

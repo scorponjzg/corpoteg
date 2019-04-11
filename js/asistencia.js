@@ -67,12 +67,13 @@ function obtener_asistencia(){
 			var temporal = "";
 			var asistio = 0;
 			console.log(data);
-			data.requerimiento.forEach(function(turno){
 				
-				data.fecha.forEach(function(entry){
+			data.fecha.forEach(function(entry){
+				data.requerimiento.forEach(function(turno){
 					if(cambio_fecha != entry.fecha && cambio_fecha != ""){
 
 						temporal += '<tr>'+
+							'<td></td>'+
 							'<td></td>'+
 							'<td></td>'+
 							'<td></td>'+

@@ -12,6 +12,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 		die("Connection failed: " . $conn->connect_error);
 	} 
 	
+	$conn->set_charset("utf8");
 	$sql = "SELECT servicio, pk_servicio as pk from servicio WHERE activo = 1";
 	
 												
