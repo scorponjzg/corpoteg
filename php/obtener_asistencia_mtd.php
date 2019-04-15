@@ -29,7 +29,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 		$fecha = " && SUBSTRING_INDEX(hora_registro, ' ', 1) <='".$f_final."'";
 	}	
 
-	$sql = "SELECT  SUBSTRING_INDEX(hora_registro, ' ', 1) AS fecha from asistencia WHERE  fk_servicio = {$servicio} ".$fecha." group by fecha order by fecha ;";
+	$sql = "SELECT  SUBSTRING_INDEX(hora_registro, ' ', 1) AS fecha from asistencia WHERE  fk_servicio = {$servicio} ".$fecha." group by fecha order by fecha DESC;";
 	$result = $conn->query($sql);
 	
 	if ($result->num_rows > 0) {
@@ -66,8 +66,15 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 				//error_log(print_r($usuarios,true));
 				$returnJs['fecha'][] = array_merge($resultado,$usuarios);
 				unset($usuarios);
-				$sql = "SELECT  t.turno, v.vacante AS personal, v.hora_entrada AS entrada, v.hora_salida AS salida, v.tolerancia_entrada AS te, v.tolerancia_salida AS ts from vacante AS v INNER JOIN turno AS t ON t.pk_turno = v.fk_turno WHERE  v.fk_servicio = {$servicio} && v.activo=1 ORDER BY v.pk_vacante ;";
-								
+				
+				
+			} else {
+				
+				$returnJs['fecha'][]= "No hay fechas registadas";
+			}
+		}
+		$sql = "SELECT  t.turno, v.vacante AS personal, v.hora_entrada AS entrada, v.hora_salida AS salida, v.tolerancia_entrada AS te, v.tolerancia_salida AS ts from vacante AS v INNER JOIN turno AS t ON t.pk_turno = v.fk_turno WHERE  v.fk_servicio = {$servicio} && v.activo=1 ORDER BY v.pk_vacante ;";
+						
 					$result_acceso1 = $conn->query($sql);
 					
 					if ($result_acceso1->num_rows > 0) {
@@ -82,12 +89,6 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 				
 						$returnJs['fecha'][]= "Debe registrar al menos un requerimiento del servicio";
 					}
-				
-			} else {
-				
-				$returnJs['fecha'][]= "No hay fechas registadas";
-			}
-		}
     } else {
 				
 		$returnJs['fecha'][]= "No hay fechas registadas";

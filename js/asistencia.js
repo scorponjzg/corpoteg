@@ -51,6 +51,7 @@ function obtener_asistencia(){
 		var servicio = $("#servicio").val();
 		var foto =  "";
 		var asistencia = "";
+		var contador_usuarios = 0;
 		var registro;
 		var listaHorario = 0;
 
@@ -66,63 +67,74 @@ function obtener_asistencia(){
 			var turno = "";
 			var temporal = "";
 			var asistio = 0;
-			console.log(data);
-				
+			console.log(data);	
 			data.fecha.forEach(function(entry){
+			
 				data.requerimiento.forEach(function(turno){
-					if(cambio_fecha != entry.fecha && cambio_fecha != ""){
+					
+					entry.usuarios.forEach(function(usuario){
 
+						cambio_fecha = entry.fecha;
 						temporal += '<tr>'+
-							'<td></td>'+
-							'<td></td>'+
-							'<td></td>'+
-							'<td></td>'+
-							'<td></td></tr>';
-					}
-					cambio_fecha = entry.fecha;
-					temporal += '<tr>'+
-							'<td>'+entry.fecha+'</td>'+
-							'<td>'+turno.turno+'</td>'+
-							'<td>'+entry.codigo+'</td>'+
-							'<td>'+entry.nombre+'</td>';
-					entry.registros.forEach(function(acceso){
+								'<td>'+entry.fecha+'</td>'+
+								'<td>'+turno.turno+'</td>'+
+								'<td>'+usuario.codigo+'</td>'+
+								'<td>'+usuario.nombre+'</td>';
+						usuario.registros.forEach(function(acceso){
 
-						if(acceso.accion == 'E'){
+							if(acceso.accion == 'E'){
 
-							if(hora_a_enteros(acceso.registro) >= hora_a_enteros(turno.entrada)-1 && hora_a_enteros(acceso.registro) <= hora_a_enteros(turno.te)+1 ){
-								asistio = 1;
-								registro = "blue";
-							}else{
-								registro = "red";
-							}
-
-						}else{
-								if(hora_a_enteros(acceso.registro) >= hora_a_enteros(turno.ts)-1 && hora_a_enteros(acceso.registro) <= hora_a_enteros(turno.salida)+1 ){
+								if(hora_a_enteros(acceso.registro) >= hora_a_enteros(turno.entrada)-1 && hora_a_enteros(acceso.registro) <= hora_a_enteros(turno.te)+1 ){
 									asistio = 1;
-								registro = "green";
+									registro = "blue";
+								}else{
+									registro = "red";
+								}
+
 							}else{
-								registro = "red";
+									if(hora_a_enteros(acceso.registro) >= hora_a_enteros(turno.ts)-1 && hora_a_enteros(acceso.registro) <= hora_a_enteros(turno.salida)+1 ){
+										//asistio = 1;
+									registro = "green";
+								}else{
+									registro = "red";
+								}
+
+
 							}
+							
+							//console.log(hora_a_enteros(acceso.registro));
+							foto += '<img src="php/fotosAsistencia/'+acceso.foto+'" alt="Foto" class="img-rounded" style="width:60px">';
+							asistencia += '<span style="color:'+registro+'">'+acceso.accion+'-'+acceso.registro+'</span><br>';
 
-
-						}
+						});
+						//'<td>'+ foto +'</td>'+
+							temporal += '<td>'+asistencia+'</td>'+
+								'</tr>';
+							foto="";
+							asistencia = "";
+							if(asistio == 1 || data.requerimiento.length ==1){
+								contador_usuarios ++;
+								resultado += temporal;
+							}
+							asistio = 0;
+							temporal = "";
+				    });
+				    resultado += '<tr>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td style="color: blue">Personal solicitado: '+turno.personal+'. Asistentes: '+contador_usuarios+'.   Asitencia: '+parseInt(contador_usuarios * 100 /turno.personal) +'% </td>'+
+					'<td></td></tr>';
+					contador_usuarios = 0;
+				});
+				
+				resultado += '<tr>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td></tr>';
 						
-						//console.log(hora_a_enteros(acceso.registro));
-						foto += '<img src="php/fotosAsistencia/'+acceso.foto+'" alt="Foto" class="img-rounded" style="width:60px">';
-						asistencia += '<span style="color:'+registro+'">'+acceso.accion+'-'+acceso.registro+'</span><br>';
-
-					});
-					//'<td>'+ foto +'</td>'+
-						temporal += '<td>'+asistencia+'</td>'+
-							'</tr>';
-						foto="";
-						asistencia = "";
-						if(asistio == 1){
-							resultado += temporal;
-						}
-						asistio = 0;
-						temporal = "";
-			    });
 			});
 			$("#reporte").empty();
 			$("#reporte").append(resultado);
