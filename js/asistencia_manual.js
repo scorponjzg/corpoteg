@@ -21,10 +21,13 @@ function obtener_servicio(){
 			url: "php/obtener_servicio_mtd.php",
 			dataType: "json"
 		}).done(function(data){
-			//console.log(data);
+			console.log(data);
 			var servicio = "";
 			data.servicio.forEach(function(entry){
-				servicio += '<option value="'+entry.id+'">'+entry.nombre+'</option>';
+
+				if(entry.permitido == "Permitido"){
+					servicio += '<option value="'+entry.id+'">'+entry.nombre+'</option>';
+				}
 			});
 			//$("#servicio").empty(servicio);
 			$("#servicio").append(servicio);
@@ -33,56 +36,34 @@ function obtener_servicio(){
 		});
 	
 }
-function obtener_turno(){
-	
-		$.ajax({
-			method:"POST",
-			url: "php/obtener_turno_mtd.php",
-			dataType: "json"
-		}).done(function(data){
-			//console.log(data);
-			var turno = "";
-			data.turno.forEach(function(entry){
-				turno += '<option value="'+entry.id+'">'+entry.nombre+'</option>';
-			});
-			//$("#turno").empty(turno);
-			$("#turno").append(turno);
-		}).fail(function(error){
-			alert(error.responseText);
-		});
-	
-}
+
 function valdaForm(){
 
 	if ($("#servicio").val()=='0'){
 		alert("Debe seleccionar un servicio");
 		$("#servicio").focus();
-	}else if ($("#turno").val()=='0'){
-		alert("Debe seleccionar un turno");
-		$("#turno").focus();
-	}else if ($("#personal").val()==''){
-		alert("Debe ingresar la cantidad de personal solicitado");
-		$("#personal").focus();
-	}else if ($("#entrada").val()==''){
-		alert("Debe ingresar una hora de entrada");
-		$("#entrada").focus();
-	}else if ($("#salida").val()==''){
-		alert("Debe ingresar una hora de salida");
-		$("#salida").focus();
-	}else if ($("#te").val()==''){
-		alert("Debe ingresar una hora de tolerancia de entrada");
-		$("#te").focus();
-	}
-	else if ($("#ts").val()==''){
-		alert("Debe ingresar una hora de tolerancia de salida");
-		$("#ts").focus();
+	}else if ($("#tipo").val()=='n'){
+		alert("Debe seleccionar el tipo de registro a aplicar");
+		$("#tipo").focus();
+	}else if ($("#fecha").val()==''){
+		alert("Debe ingresar la fecha de asitencia");
+		$("#fecha").focus();
+	}else if ($("#hora").val()==''){
+		alert("Debe ingresar la hora del registro");
+		$("#hora").focus();
+	}else if ($("#codigo").val()==''){
+		alert("Debe ingresar el código del usuario");
+		$("#codigo").focus();
+	}else if ($("#nombre").val()==''){
+		alert("Debe ingresar el nombre de usuario");
+		$("#nombre").focus();
 	}else{
 		return true;
 	}
 }
 $(function(){
 	responsive_menu();
-	obtener_turno();
+	
 	obtener_servicio();
 	$(window).resize(function(){
 		responsive_menu();
@@ -95,14 +76,14 @@ $(function(){
 				
 				$.ajax({
 				method: "POST",
-				url: "php/nuevo_requerimiento_mtd.php",
+				url: "php/asistencia_manual_mtd.php",
 				dataType: "json",
 				data: servicio 
 				}).done(function(entry){
 					console.log(entry);
 					if(entry.ingresado == 'true'){
 						alert("Servicio creado correctamente.");
-						window.location.replace("requerimiento.php");
+						window.location.replace("asistencia_manual.php");
 					} else {
 						alert(entry.ingresado);
 					}

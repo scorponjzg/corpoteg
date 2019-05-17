@@ -6,21 +6,19 @@ function obtener_servicio(){
 			method: "POST",
 			url: "php/obtener_sercvicio_mtd.php",
 			dataType:"json"
-		}).done(function(data){
-			console.log(data);
+		}).done(function(dato){
+			console.log(dato.content.data);
 			var resultado = "";
-			data.servicio.forEach(function(entry){
-			resultado += '<tr><td>'+entry.nombre+'</td>';
-						if(data.show == 'true'){
-							resultado += '<td><a href="#" class="btn btn-default ver" role="button" data-id="'+entry.id+'">'+
-								  '<span class="glyphicon glyphicon-eye-open"></span></a></td>';
-						}
+			dato.servicio.forEach(function(entry){
+			resultado += '<tr><td>'+entry.nombre+'</td>'+
+							  '<td>'+entry.permitido+'</td>';
+					
 						resultado += '</tr>';
 			
 		    } );
 			$('#get_servicio').empty();
-			$('#get_servicio').append(resultado);
-			$(".ver").on("click",verDetalle);
+			$('#producto').append(resultado);
+			
 
 			
 		}).fail(function(error){

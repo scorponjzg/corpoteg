@@ -11,11 +11,9 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	} 
-	$conn->set_charset("utf8");
 	
-	$returnJs = [];
-	$returnJs['show'] = "false";			
-	$sql = "SELECT servicio as nombre, pk_servicio as id, IF(asistencia_manual = 0, 'Restringido', 'Permitido') AS permitido FROM servicio WHERE activo=1;";
+	$conn->set_charset("utf8");
+	$sql = "SELECT servicio, pk_servicio as pk from servicio WHERE activo = 1";
 	
 												
 	$result = $conn->query($sql);
@@ -24,19 +22,18 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 		
 		while($resultado = $result->fetch_assoc()){
 			
-			$returnJs['servicio'][]= $resultado;
-		}
-		if($_SESSION['tipo_corpoteg'] == 1){
-
-			$returnJs['show'] = "true";
+			
+			
+				$returnJs['servicio'][]= $resultado;
+			
 		}
 		
-	} else {
 		
-		$returnJs['servicio'] = array("salida" => "No hay servicios registrados");
+	} else{
+		
+		$returnJs['servicio'][]= "No hay servicios registados";
 	}
-	$result->free();
-	
+		$result->free();
 					
 	echo json_encode($returnJs);
 	$conn->close();

@@ -18,12 +18,16 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		
 		$conn -> set_charset('utf8');
 		
+		$servicio = isset($_POST['servicio']) ? $conn->real_escape_string($_POST['servicio']) : '';
+		$tipo = isset($_POST['tipo']) ? $conn->real_escape_string($_POST['tipo']) : '';
+		$fecha = isset($_POST['fecha']) ? $conn->real_escape_string($_POST['fecha']) : '';
+		$hora = isset($_POST['hora']) ? $conn->real_escape_string($_POST['hora']) : '';
+		$codigo = isset($_POST['codigo']) ? $conn->real_escape_string($_POST['codigo']) : '';
 		$nombre = isset($_POST['nombre']) ? $conn->real_escape_string($_POST['nombre']) : '';
-		$permitir = isset($_POST['permitir']) ? $_POST['permitir']+0 : '0';
-
+		$registro = $fecha." ".$hora;
 		
-			$sql = "INSERT INTO servicio(servicio, asistencia_manual) VALUES('{$nombre}', {$permitir})";
-	
+			$sql = "INSERT INTO asistencia (codigo_usuario, nombre, hora_registro,  accion_registro, fk_usuario, fk_servicio, medio_registro) VALUES('$codigo','{$nombre}', '{$registro}', {$tipo},{$_SESSION['usuario_corpoteg']},{$servicio},'Sistema Web modo manual') ; ";
+			error_log($sql);
 			$conn->query($sql);
 			
 			if($conn->affected_rows == 1){

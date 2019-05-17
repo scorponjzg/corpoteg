@@ -88,6 +88,9 @@ th {
 								
 								<br>
 								<input type="text" placeholder="Ingrese el nombre o una parte para buscar" style="width:60%;margin: 18px auto ;text-align: center" id="buscar">
+
+								<br>
+								<button onclick="crearCSV('reclutados','estudios')">Exportar a CSV</button>
 							</div>
 						</div>
 					
@@ -96,15 +99,14 @@ th {
 				<div class="tab-content">
 					
 						<div class="table-responsive">
-							<table class="table table-bordered"style="margin-top: 20px;" id="reclutados" name="sucursales">
+							<table class="table table-bordered"style="margin-top: 20px;" id="reclutados" name="reclutados">
 								<thead >
 								  <tr class="info">
-									<th style="width:10%;">Fecha</th>
-									<th style="width:10%;">Turno</th>
-									<th style="width:10%;">C&oacute;digo</th>
-									<th style="width:40%;">Nombre</th>
-									<!--th style="width:20%;">Foto(s)</th-->
-									<th style="width:10%;">Registros</th>
+									<th style="width:10%;"> Fecha </th>
+									<th style="width:10%;"> Turno </th>
+									<th style="width:10%;">  C&oacute;digo </th>
+									<th style="width:40%;"> Nombre </th>
+									<th style="width:10%;"> Registros </th>
 								  </tr>
 								</thead>
 								<tbody id="asitencia">

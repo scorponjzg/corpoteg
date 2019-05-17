@@ -36,8 +36,13 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]) 
 		<div class="well">		
 			<div class="form-group">		 
 				<label for="nombre">*Nombre:</label>
-				<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese un nombre">
+				<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese un nombre de servicio">
 			</div>
+      <div class="form-group checkbox">        
+        <label><input type="checkbox" name="permitir" id="permitir" value="1">Permitir asistencia manual </label>
+
+      </div>
+
 			 
 			  <button type="commit" class="btn btn-info " style="margin-right:25px;" >Guardar</button>
 			  <button type="button" class="btn btn-danger " style="margin: 0 auto;" onclick="window.location.replace('servicio.php');">Cancelar</button>

@@ -15,7 +15,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	
 	$returnJs = [];
 	$returnJs['show'] = "false";			
-	$sql = "SELECT servicio as nombre, pk_servicio as id, IF(asistencia_manual = 0, 'Restringido', 'Permitido') AS permitido FROM servicio WHERE activo=1;";
+	$sql = "SELECT servicio as nombre, pk_servicio as id, IF(asistencia_manual = 0, 'Restringido', 'Permitido') AS permitido FROM servicio WHERE activo=1 && asistencia_manual = 1;";
 	
 												
 	$result = $conn->query($sql);

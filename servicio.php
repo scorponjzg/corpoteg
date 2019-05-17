@@ -66,6 +66,7 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]) 
 								<thead >
 								  <tr class="info">
 									<th style="width:80%;text-align: center;">Nombre</th>
+									<th style="width:10%;text-align: center;">Asistencia manual</th>
 									
 									<?php if($_SESSION['tipo_corpoteg'] == 1){ ?>
 										<th style="width:10%;">Detalles</th>

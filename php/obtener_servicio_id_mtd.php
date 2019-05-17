@@ -18,7 +18,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	$id = isset($_POST['servicio']) ? $_POST['servicio'] + 0 : 0;
 	
 
-	$sql = "SELECT servicio, pk_servicio as id from servicio WHERE pk_servicio= ".$id;
+	$sql = "SELECT servicio, pk_servicio as id, asistencia_manual AS permitido from servicio WHERE pk_servicio= ".$id;
    								
 	$result = $conn->query($sql);
 	

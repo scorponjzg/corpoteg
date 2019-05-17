@@ -24,12 +24,15 @@ function obtenerServicio(){
 	$.ajax({
 
 		method: "POST",
-		url:"php/obtener_sevicio_mtd.php",
+		url:"php/obtener_servicio_id_mtd.php",
 		dataType: "json",
 		data: {"servicio":servicio}
 
 	}).done(function(data){
 		
+		if (data.servicio.permitido == "1"){
+			$("#permitir").attr('checked', true);
+		}
 		$("#nombre").val(data.servicio.servicio);
 		$("#clave").val(data.servicio.id);
 		
@@ -47,7 +50,6 @@ function eliminar(){
 		data: {"id":$("#clave").val()}
 
 	}).done(function(data){
-		console.log(data);
 		
 		if(data.eliminado == 'true'){
 			alert("Servicio eliminado correctamente");
@@ -63,9 +65,9 @@ function eliminar(){
 function editarServicio(){
 	$.ajax({
 		method: "POST",
-		url:"php/editar_sevicio_mtd.php",
+		url:"php/editar_servicio_mtd.php",
 		dataType: "json",
-		data: {"id":$("#clave").val(),"servicio":$("#nombre").val()}
+		data: {"id":$("#clave").val(),"servicio":$("#nombre").val(), "permitir": $("#permitir").val()}
 	}).done(function(data){
 		if(data.editado == 'true'){
 			alert("Servicio editado correctamente");

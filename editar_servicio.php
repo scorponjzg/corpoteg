@@ -1,4 +1,4 @@
-<?php 
+r<?php 
 session_start();
 if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["tipo_corpoteg"])) {
     header("Location: index.php"); /* Redirect browser */
@@ -46,6 +46,10 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["tipo_corpoteg"])) {
 				<input type="text" class="form-control" id="nombre" name="nombre" placeholder="No Registrado">
 				<input type="hidden" id="clave" name="clave">
 			</div>
+			 <div class="form-group checkbox">        
+		        <label><input type="checkbox" name="permitir" id="permitir" value="1">Permitir asistencia manual </label>
+
+		      </div>
 			 
 			  <button type="button" class="btn btn-info" style="margin-right:25px;" id="editar">Guardar cambios</button>
 			   <button type="button" class="btn btn-danger" style="margin-right:25px;" id="eliminar" >Eliminar</button>
