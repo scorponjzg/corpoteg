@@ -25,6 +25,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		
 			
 			$sql = "UPDATE servicio SET servicio='{$servicio}', asistencia_manual = {$permitir} WHERE pk_servicio={$id}";
+			error_log($sql);
 				
 			$noCambios = $conn->query($sql);
 			//error_log($sql."---".$noCambios);

@@ -63,21 +63,26 @@ function eliminar(){
 }
 
 function editarServicio(){
-	$.ajax({
-		method: "POST",
-		url:"php/editar_servicio_mtd.php",
-		dataType: "json",
-		data: {"id":$("#clave").val(),"servicio":$("#nombre").val(), "permitir": $("#permitir").val()}
-	}).done(function(data){
-		if(data.editado == 'true'){
-			alert("Servicio editado correctamente");
-			window.location.href="servicio.php";
-		} else {
-			alert(data.editado);
-		}
-	}).fail(function(error){
-		console.log(error.responseText);
-	});
+	if($("#nombre").val() !=""){	
+		var permitido = $('#permitir').is(':checked') ? 1:0;
+		$.ajax({
+			method: "POST",
+			url:"php/editar_servicio_mtd.php",
+			dataType: "json",
+			data: {"id":$("#clave").val(),"servicio":$("#nombre").val(), "permitir": permitido}
+		}).done(function(data){
+			if(data.editado == 'true'){
+				alert("Servicio editado correctamente");
+				window.location.href="servicio.php";
+			} else {
+				alert(data.editado);
+			}
+		}).fail(function(error){
+			console.log(error.responseText);
+		});
+	} else {
+		alert("Debe ingresar un nombre de servicio")
+	}
 }
 $(function(){
 

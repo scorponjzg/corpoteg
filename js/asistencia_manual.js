@@ -21,7 +21,7 @@ function obtener_servicio(){
 			url: "php/obtener_servicio_mtd.php",
 			dataType: "json"
 		}).done(function(data){
-			console.log(data);
+			//console.log(data);
 			var servicio = "";
 			data.servicio.forEach(function(entry){
 
@@ -72,7 +72,7 @@ $(function(){
 		event.preventDefault();
 		var servicio = $(this).serialize();
 		if(valdaForm()){	
-		console.log(servicio);
+		//console.log(servicio);
 				
 				$.ajax({
 				method: "POST",
@@ -80,9 +80,9 @@ $(function(){
 				dataType: "json",
 				data: servicio 
 				}).done(function(entry){
-					console.log(entry);
+					//console.log(entry);
 					if(entry.ingresado == 'true'){
-						alert("Servicio creado correctamente.");
+						alert("Asistencia creada correctamente.");
 						window.location.replace("asistencia_manual.php");
 					} else {
 						alert(entry.ingresado);

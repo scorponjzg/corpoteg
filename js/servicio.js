@@ -4,20 +4,24 @@ function obtener_servicio(){
 
 		$.ajax({
 			method: "POST",
-			url: "php/obtener_sercvicio_mtd.php",
+			url: "php/obtener_servicio_mtd.php",
 			dataType:"json"
-		}).done(function(dato){
-			console.log(dato.content.data);
+		}).done(function(data){
+			
 			var resultado = "";
-			dato.servicio.forEach(function(entry){
+			data.servicio.forEach(function(entry){
 			resultado += '<tr><td>'+entry.nombre+'</td>'+
-							  '<td>'+entry.permitido+'</td>';
-					
+							 '<td>'+entry.permitido+'</td>';
+						if(data.show == 'true'){
+							resultado += '<td><a href="#" class="btn btn-default ver" role="button" data-id="'+entry.id+'">'+
+								  '<span class="glyphicon glyphicon-eye-open"></span></a></td>';
+						}
 						resultado += '</tr>';
 			
 		    } );
 			$('#get_servicio').empty();
-			$('#producto').append(resultado);
+			$('#get_servicio').append(resultado);
+			$(".ver").on("click",verDetalle);
 			
 
 			

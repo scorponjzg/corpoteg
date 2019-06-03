@@ -44,6 +44,9 @@ $(function(){
 					console.log(error);
 				});
 			
-		} 
+		} else {
+			alert("Debe ingresar el nombre del servicio");
+			$("#nombre").focus();
+		}
 	})
 });

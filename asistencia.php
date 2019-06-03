@@ -90,7 +90,7 @@ th {
 								<input type="text" placeholder="Ingrese el nombre o una parte para buscar" style="width:60%;margin: 18px auto ;text-align: center" id="buscar">
 
 								<br>
-								<button onclick="crearCSV('reclutados','estudios')">Exportar a CSV</button>
+								<button onclick="crearCSV('asistencia','generico')">Exportar a CSV</button>
 							</div>
 						</div>
 					
@@ -99,14 +99,19 @@ th {
 				<div class="tab-content">
 					
 						<div class="table-responsive">
-							<table class="table table-bordered"style="margin-top: 20px;" id="reclutados" name="reclutados">
+							<table class="table table-bordered"style="margin-top: 20px;" id="asistencia" name="asistencia">
 								<thead >
 								  <tr class="info">
-									<th style="width:10%;"> Fecha </th>
-									<th style="width:10%;"> Turno </th>
-									<th style="width:10%;">  C&oacute;digo </th>
-									<th style="width:40%;"> Nombre </th>
-									<th style="width:10%;"> Registros </th>
+									<th style="width:8%;"> Fecha </th>
+									<th style="width:6%;"> Turno </th>
+									<th style="width:8%;">  C&oacute;digo </th>
+									<th style="width:30%;"> Nombre </th>
+									<th style="width:8%;"> Entrada jornada </th>
+									<th style="width:8%;"> Salida comida </th>
+									<th style="width:8%;"> Entrada comida </th>
+									<th style="width:8%;"> Salida jornada </th>
+									<th style="width:8%;"> Tiempo comida </th>
+									<th style="width:8%;"> Tiempo trabajado</th>
 								  </tr>
 								</thead>
 								<tbody id="asitencia">
