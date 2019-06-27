@@ -91,15 +91,15 @@ function restarHoras(inicio, fin) {
 function valida_formulario(){
 	
 	var inicial = $("#f_inicial").val();
-	var final = $("#f_final").val();
-	var servicio = $("#servicio").val();
+	
+	var turno = $("#turno").val();
 	var correcto = true;
 	
-	if(servicio == '0'){
-		alert("Debe seleccionar un servicio");
-		$("#servicio").focus();
+	if(turno == '0'){
+		alert("Debe seleccionar un turno");
+		$("#turno").focus();
 		correcto = false;
-	} else if(final == '' && inicial ==''){
+	} else if( inicial ==''){
 		alert("Debe seleccionar una fecha");
 		$("#f_inicial").focus();		
 		correcto = false;
@@ -107,19 +107,19 @@ function valida_formulario(){
 	
 		return correcto;
 }
-function obtener_servicio(){
+function obtener_turno(){
 	
 		$.ajax({
 			method:"POST",
-			url: "php/obtener_servicio_mtd.php",
+			url: "php/obtener_turno_civil_mtd.php",
 			dataType: "json"
 		}).done(function(data){
-			
-			var servicio = "";
-			data.servicio.forEach(function(entry){
-				servicio += '<option value="'+entry.id+'">'+entry.nombre+'</option>';
+			console.log(data);
+			var turno = "";
+			data.turno.forEach(function(entry){
+				turno += '<option value="'+entry.id+'">'+entry.nombre+'</option>';
 			});
-			$("#servicio").append(servicio);
+			$("#turno").append(turno);
 		}).fail(function(error){
 			alert(error.responseText);
 		});
@@ -136,8 +136,6 @@ function obtener_asistencia(){
 	if(valida_formulario() && $("#fecha").val() !='0'){
 		
 		var inicial = $("#f_inicial").val();
-		var final = $("#f_final").val();
-		var servicio = $("#servicio").val();
 		var foto =  "";
 		var contador_usuarios = 0;
 		var registro;
@@ -145,7 +143,7 @@ function obtener_asistencia(){
 
 		$.ajax({
 			method: "POST",
-			url: "php/obtener_asistencia_mtd.php",
+			url: "php/obtener_asistencia_civil_mtd.php",
 			dataType:"json",
 			data:{servicio:servicio,f_inicial:inicial, f_final:final}
 		}).done(function(data){
@@ -280,22 +278,6 @@ function obtener_asistencia(){
     	$('#asitencia').empty();
     }
 }
-function limpiar_fecha(){
-	
-	$("#fecha").empty();
-	$('#asitencia').empty();
-	$("#fecha").append('<option value="0">Seleccione una fecha</option>');
-}
-
-function getAbsolutePath() {
-	if(valida_formulario()){
-	    var loc = window.location;
-	    var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
-	    var urlAbsolute = loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
-	    var search = "servicio="+$("#servicio").val()+"&f_inicial="+$("#f_inicial").val()+"&f_final="+$("#f_final").val();
-	     $("#url_input").val(urlAbsolute+"visor_asistencia.php?"+btoa(search));
-    }
-}
 
 $(function(){
 	//encotrarEstudio();
@@ -305,8 +287,6 @@ $(function(){
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
-	obtener_servicio();
-	$("#url_button").on('click',getAbsolutePath);
-	$("#servicio").change(limpiar_fecha);
+	obtener_turno();
 	
 });

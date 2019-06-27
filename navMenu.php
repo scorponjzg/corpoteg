@@ -46,6 +46,9 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]))
 	       <?php if($_SESSION['tipo_corpoteg'] == 1) { ?>
         <li ><a href="#">Usuario</a></li>
         <?php  }; ?>
+        <?php if($_SESSION['tipo_corpoteg'] == 1 || $_SESSION['tipo_corpoteg'] == 3) { ?>
+        <li ><a href="reporte_civil_nuevo.php">Reporte Civil nuevo</a></li>
+        <?php  }; ?>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
