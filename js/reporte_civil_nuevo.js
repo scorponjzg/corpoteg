@@ -135,7 +135,8 @@ function obtener_asistencia(){
     
 	if(valida_formulario() && $("#fecha").val() !='0'){
 		
-		var inicial = $("#f_inicial").val();
+		var fecha = $("#f_inicial").val();
+		var turno = $("#turno").val();
 		var foto =  "";
 		var contador_usuarios = 0;
 		var registro;
@@ -145,7 +146,7 @@ function obtener_asistencia(){
 			method: "POST",
 			url: "php/obtener_asistencia_civil_mtd.php",
 			dataType:"json",
-			data:{servicio:servicio,f_inicial:inicial, f_final:final}
+			data:{'fecha':fecha, 'turno': turno}
 		}).done(function(data){
 			
 			var resultado = "";

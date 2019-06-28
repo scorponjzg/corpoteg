@@ -15,7 +15,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	
 	$returnJs = [];
 	$returnJs['show'] = "false";			
-	$sql = "SELECT t.turno AS nombre, v.pk_vacante AS id FROM vacante AS v INNER JOIN turno AS t ON v.fk_turno = t.pk_turno WHERE v.fk_servicio = 3 && v.activo = 1;";
+	$sql = "SELECT t.turno AS nombre, v.pk_vacante AS id FROM vacante AS v INNER JOIN turno AS t ON v.fk_turno = t.pk_turno WHERE v.fk_servicio = 6 && v.activo = 1;";
 	
 												
 	$result = $conn->query($sql);
