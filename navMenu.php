@@ -37,7 +37,7 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]))
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reclutamiento
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="colaborador.php">Colaboradores</a></li>
+            <li><a href="reclutamiento.php">Colaboradores</a></li>
             <li><a href="#">Estadisticas</a></li>
            
             
