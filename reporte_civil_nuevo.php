@@ -18,6 +18,7 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]))
   <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/reporte_civil_nuevo.js"></script>
+  <script src="js/excellentexport.js"></script>
 </head>
 <body>
 
@@ -75,7 +76,8 @@ th {
 								<input type="text" placeholder="Ingrese el nombre o una parte para buscar" style="width:60%;margin: 18px auto ;text-align: center" id="buscar">
 
 								<br>
-								<button onclick="crearCSV('asistencia','generico')">Exportar a CSV</button>
+								
+								 <a download="sin informacion.csv" href="#" onclick="return ExcellentExport.csv(this, 'asistencia');" id="descargar">Exportar excel</a>
 							</div>
 						</div>
 					

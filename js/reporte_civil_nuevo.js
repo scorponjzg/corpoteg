@@ -151,14 +151,14 @@ function obtener_asistencia(){
 			console.log(data);
 			var resultado = "";
 		
-			data.fecha.forEach(function(entry){					
+			data.asistencia.forEach(function(entry){					
 					
 						resultado += '<tr>'+
 								'<td>'+entry.codigo+'</td>'+
 								'<td>'+entry.nombre+'</td>'+
-								'<td>Fecha</td>'+
-								'<td>'+entry.nombre+'</td>'+
-								'<td>'+entry.nombre+'</td>';
+								'<td>'+data.fecha+'</td>'+
+								'<td>'+entry.entrada+'</td>'+
+								'<td>'+entry.salida+'</td>';
 							
 						
 			});
@@ -185,5 +185,12 @@ $(function(){
     });
   });
 	obtener_turno();
+	$("#turno").change(function(){
+
+	var meses = new Array ("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
+	var f=$("#f_inicial").val().split("-");
+	
+		$("#descargar").attr("download",$('#turno option:selected').text()+"-"+f[0]+ "-" + meses[(parseInt(f[1]))-1] + "-" + f[2]+ ".csv");
+	});
 	
 });

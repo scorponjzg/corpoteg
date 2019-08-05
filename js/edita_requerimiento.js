@@ -52,10 +52,10 @@ function obtener_servicio(){
 			url: "php/obtener_servicio_mtd.php",
 			dataType: "json"
 		}).done(function(data){
-			//console.log(data);
+			console.log(data);
 			var servicio = "";
 			data.servicio.forEach(function(entry){
-				servicio += '<option value="'+entry.pk+'">'+entry.servicio+'</option>';
+				servicio += '<option value="'+entry.id+'">'+entry.nombre+'</option>';
 			});
 			//$("#servicio").empty(servicio);
 			$("#servicio").append(servicio);

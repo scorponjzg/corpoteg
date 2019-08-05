@@ -1,0 +1,76 @@
+SELECT * FROM `asistencia` WHERE fk_servicio =  9 && nombre like "%Maricela%" && hora_registro >= "2019-07-29"
+
+SELECT  nombre, IFNULL(codigo_usuario,'No registrado') as codigo FROM asistencia WHERE fk_servicio = 9 && ((hora_registro BETWEEN '2019-07-29 12:30' AND '2019-07-29 15:30' AND accion_registro = 1 ) || (hora_registro BETWEEN '2019-07-29 22:30' AND '2019-07-29 19:30' AND accion_registro = 0 ))  GROUP BY nombre ORDER BY nombre ;"},"fecha":"2019-jul-29"}
+
+Velazquez Gomez Maria Del Rosario
+Reyes Jauregui Maricela
+
+CREATE TABLE IF NOT EXISTS `corpoteg`.`labora` (
+  `fk_usuario` INT(11) NOT NULL,
+  `fk_dia` INT NOT NULL,
+  `entrada` TIME NOT NULL,
+  `salida` TIME NOT NULL,
+  `e_comida` TIME NULL,
+  `s_comida` TIME NULL,
+  PRIMARY KEY (`fk_usuario`, `fk_dia`),
+  INDEX `fk_usuario_has_dia_dia1_idx` (`fk_dia` ASC) VISIBLE,
+  INDEX `fk_usuario_has_dia_usuario1_idx` (`fk_usuario` ASC) VISIBLE,
+  CONSTRAINT `fk_usuario_has_dia_usuario1`
+    FOREIGN KEY (`fk_usuario`)
+    REFERENCES `corpoteg`.`usuario` (`pk_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_usuario_has_dia_dia1`
+    FOREIGN KEY (`fk_dia`)
+    REFERENCES `corpoteg`.`dia` (`pk_dia`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `corpoteg`.`usuario` (
+  `pk_usuario` INT(11) NOT NULL AUTO_INCREMENT,
+  `codigo` VARCHAR(45) NULL DEFAULT NULL,
+  `usuario` VARCHAR(255) NULL DEFAULT NULL,
+  `contrasena` VARCHAR(255) NULL DEFAULT NULL,
+  `nombre` VARCHAR(100) NOT NULL,
+  `a_paterno` VARCHAR(100) NOT NULL,
+  `a_materno` VARCHAR(100) NULL DEFAULT NULL,
+  `telefono` VARCHAR(30) NULL DEFAULT NULL,
+  `observacion` VARCHAR(500) NULL DEFAULT NULL,
+  `correo_electronico` VARCHAR(100) NULL DEFAULT NULL,
+  `fecha_registro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_modificacion` TIMESTAMP NULL DEFAULT NULL,
+  `activo` TINYINT(4) NOT NULL DEFAULT '1',
+  `nss` VARCHAR(30) NOT NULL,
+  `curp` VARCHAR(30) NOT NULL,
+  `tipo_sangre` VARCHAR(4) NOT NULL,
+  `contacto` VARCHAR(180) NULL DEFAULT NULL,
+  `alergia` VARCHAR(500) NULL DEFAULT NULL,
+  `direccion` VARCHAR(300) NULL DEFAULT NULL,
+  `fk_medio` INT(11) NOT NULL,
+  `fk_perfil` INT(11) NOT NULL,
+  `fk_estatus` INT(11) NOT NULL,
+  `reclutador` TINYINT(4) NOT NULL,
+  `nombre_foto` VARCHAR(50) NULL DEFAULT NULL,
+  `quincena` FLOAT NOT NULL,
+  `jornada` TINYINT(1) NOT NULL,
+  `activo_imss` TIMESTAMP NULL,
+  `folio_imss` VARCHAR(50) NULL,
+  `baja_imss` TIMESTAMP NULL,
+  PRIMARY KEY (`pk_usuario`, `fk_medio`, `fk_perfil`, `fk_estatus`),
+  INDEX `fk_usuario_medio1_idx` (`fk_medio` ASC) VISIBLE,
+  INDEX `fk_usuario_perfil1_idx` (`fk_perfil` ASC) VISIBLE,
+  INDEX `fk_usuario_estatus1_idx` (`fk_estatus` ASC) VISIBLE,
+  CONSTRAINT `fk_usuario_estatus1`
+    FOREIGN KEY (`fk_estatus`)
+    REFERENCES `corpoteg`.`estatus` (`pk_estatus`),
+  CONSTRAINT `fk_usuario_medio1`
+    FOREIGN KEY (`fk_medio`)
+    REFERENCES `corpoteg`.`medio` (`pk_medio`),
+  CONSTRAINT `fk_usuario_perfil1`
+    FOREIGN KEY (`fk_perfil`)
+    REFERENCES `corpoteg`.`perfil` (`pk_perfil`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8;

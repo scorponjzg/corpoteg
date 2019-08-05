@@ -20,6 +20,7 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]))
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="visor_general.php">Inicio</a></li>
+         <?php if($_SESSION['tipo_corpoteg'] == 1) { ?>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sistema
           <span class="caret"></span></a>
@@ -33,6 +34,7 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]))
             
           </ul>
         </li>
+
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reclutamiento
           <span class="caret"></span></a>
@@ -43,6 +45,7 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]))
             
           </ul>
         </li>
+        <?php  }; ?>
 	       <?php if($_SESSION['tipo_corpoteg'] == 1) { ?>
         <li ><a href="#">Usuario</a></li>
         <?php  }; ?>
