@@ -109,7 +109,7 @@ function resolucion_pantalla(){
 
 $(function(){
 	resolucion_pantalla();
-    obtener_usuario();
+   // obtener_usuario();
 	
 	$("#nuevo").on('click',nuevo_reporte);		
 	
