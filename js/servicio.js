@@ -7,10 +7,11 @@ function obtener_servicio(){
 			url: "php/obtener_servicio_mtd.php",
 			dataType:"json"
 		}).done(function(data){
-			
+			console.log(data);
 			var resultado = "";
 			data.servicio.forEach(function(entry){
-			resultado += '<tr><td>'+entry.nombre+'</td>'+
+			resultado += '<tr><td>'+entry.cliente+'</td>'+
+							'<td>'+entry.nombre+'</td>'+
 							 '<td>'+entry.permitido+'</td>';
 						if(data.show == 'true'){
 							resultado += '<td><a href="#" class="btn btn-default ver" role="button" data-id="'+entry.id+'">'+

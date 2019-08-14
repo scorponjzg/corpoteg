@@ -10,6 +10,7 @@ function obtener_servicio(){
 			
 			var resultado = "";
 			data.cliente.forEach(function(entry){
+				
 			resultado += '<tr><td>'+entry.cliente+'</td>'+
 							 '<td>'+entry.estado+'</td>';
 						if(data.show == 'true'){
@@ -33,7 +34,7 @@ function obtener_servicio(){
 }
 function verDetalle(){
   
-	window.location.replace("editar_servicio.php?"+btoa("servicio="+$(this).attr("data-id")));
+	window.location.replace("editar_cliente.php?"+btoa("cliente="+$(this).attr("data-id")));
 }
 
 function responsive_menu(){
