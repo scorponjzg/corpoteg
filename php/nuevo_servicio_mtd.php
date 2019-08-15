@@ -19,10 +19,11 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		$conn -> set_charset('utf8');
 		
 		$nombre = isset($_POST['nombre']) ? $conn->real_escape_string($_POST['nombre']) : '';
+		$cliente = isset($_POST['cliente']) ? $_POST['cliente']+0 : '0';
 		$permitir = isset($_POST['permitir']) ? $_POST['permitir']+0 : '0';
 
 		
-			$sql = "INSERT INTO servicio(servicio, asistencia_manual) VALUES('{$nombre}', {$permitir})";
+			$sql = "INSERT INTO servicio(servicio, asistencia_manual,fk_cliente) VALUES('{$nombre}', {$permitir},{$cliente})";
 	
 			$conn->query($sql);
 			

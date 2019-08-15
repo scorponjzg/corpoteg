@@ -21,10 +21,11 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		$id = isset($_POST['id']) ? $conn->real_escape_string($_POST['id']) : '';
 		$servicio = isset($_POST['servicio']) ? $conn->real_escape_string($_POST['servicio']) : '';
 		$permitir = isset($_POST['permitir']) ? $_POST['permitir']+0 : '0';
+		$cliente = isset($_POST['cliente']) ? $_POST['cliente']+0 : '0';
 
 		
 			
-			$sql = "UPDATE servicio SET servicio='{$servicio}', asistencia_manual = {$permitir} WHERE pk_servicio={$id}";
+			$sql = "UPDATE servicio SET servicio='{$servicio}', asistencia_manual = {$permitir}, fk_cliente = {$cliente} WHERE pk_servicio={$id}";
 			error_log($sql);
 				
 			$noCambios = $conn->query($sql);

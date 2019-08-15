@@ -41,6 +41,12 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["tipo_corpoteg"])) {
     <form action="#" style="margin: 10px;" id='formulario' autocomplete="off">
 		<div class="well">		
 				<input type="hidden" id="sucursal" name="estudio">	
+			<div class="form-group">     
+		        <label for="nombre">*Cliente:</label>
+		        <select class="form-control" id="cliente" name="cliente">
+		          <option value="0">Seleccione un cliente</option>
+		        </select>       
+		    </div>
 			<div class="form-group">		 
 				<label for="nombre">*Nombre:</label>
 				<input type="text" class="form-control" id="nombre" name="nombre" placeholder="No Registrado">

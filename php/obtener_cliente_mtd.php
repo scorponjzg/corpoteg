@@ -15,7 +15,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	
 	$returnJs = [];
 	$returnJs['show'] = "false";			
-	$sql = "SELECT  nombre AS cliente, pk_cliente as id, IF(activo = 0, 'Inactivo', 'Activo') AS estado FROM cliente WHERE pk_cliente <= 1;";
+	$sql = "SELECT  nombre AS cliente, pk_cliente as id, IF(activo = 0, 'Inactivo', 'Activo') AS estado FROM cliente WHERE pk_cliente >= 1;";
 	
 												
 	$result = $conn->query($sql);

@@ -18,6 +18,30 @@ function redireccion(){
 	
 }
 
+function obtenerCliente(){
+	var resultado = '<option value="0">Seleccione un cliene</option>';
+	$.ajax({
+				method: "POST",
+				url: "php/obtener_cliente_mtd.php",
+				dataType: "json"
+				}).done(function(data){
+					
+					data.cliente.forEach(function(entry){
+						if(entry.estado == "Activo"){
+							resultado += '<option value="'+entry.id+'">'+entry.cliente+'</option>';
+						}
+					
+				    } );
+					$('#cliente').empty();
+					$('#cliente').append(resultado);
+
+					obtenerServicio();
+
+				}).fail(function(error){
+					console.log(error);
+				});
+}
+
 function obtenerServicio(){
 	var servicio = getQueryVariable('servicio');
 	
@@ -35,6 +59,7 @@ function obtenerServicio(){
 		}
 		$("#nombre").val(data.servicio.servicio);
 		$("#clave").val(data.servicio.id);
+		$("#cliente").val(data.servicio.cliente);
 		
 	}).fail(function(error){
 		console.log(error.responseText);
@@ -62,14 +87,30 @@ function eliminar(){
 	});
 }
 
+function validaForm(){
+
+	if($("#nombre").val() ==""){	
+		alert("Debe ingresar el nombre del servicio");
+			$("#nombre").focus();
+		
+	} else if($("#cliente").val() =="0"){
+		alert("Debe seleccionar un cliente");
+			$("#cliente").focus();
+
+	} else {
+		return true;
+	}
+
+}
+
 function editarServicio(){
-	if($("#nombre").val() !=""){	
+	if(validaForm()){	
 		var permitido = $('#permitir').is(':checked') ? 1:0;
 		$.ajax({
 			method: "POST",
 			url:"php/editar_servicio_mtd.php",
 			dataType: "json",
-			data: {"id":$("#clave").val(),"servicio":$("#nombre").val(), "permitir": permitido}
+			data: {"id":$("#clave").val(),"servicio":$("#nombre").val(), "permitir": permitido, "cliente": $("#cliente").val()}
 		}).done(function(data){
 			if(data.editado == 'true'){
 				alert("Servicio editado correctamente");
@@ -80,13 +121,11 @@ function editarServicio(){
 		}).fail(function(error){
 			console.log(error.responseText);
 		});
-	} else {
-		alert("Debe ingresar un nombre de servicio")
 	}
 }
 $(function(){
-
-	obtenerServicio();
+	obtenerCliente();
+	
 	
 	$("#cancelar").on("click",redireccion);
 	$("#eliminar").on("click",eliminar);
