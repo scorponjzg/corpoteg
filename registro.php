@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>reporte actividad</title>
+  <title>Registro</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="img/favicon.png">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-  <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+  <script src="js/jquery-3.1.0.min.js" type="text/javascript"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/registro.js"></script>
 </head>
@@ -132,7 +132,17 @@
 			</div>	
 			<div class="form-group">		 
 				<label for="servicio">Servicio:</label>
-				<input type="text" class="form-control" id="servicio" name="servicio">
+				<select  class="form-control" id="servicio" name="servicio">
+					<option value="0">Seleccione un servicio</option>
+				</select>
+				
+			</div> 	
+			<div class="form-group">		 
+				<label for="turno">Turno:</label>
+				<select  class="form-control" id="turno" name="turno">
+					<option value="0">Seleccione un turno</option>
+				</select>
+				
 			</div> 	
 			 					
 			  <button type="button" class="btn btn-danger" style="margin-right:25px" id="regresar">Regresar</button>

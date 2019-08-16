@@ -22,7 +22,7 @@ function obtenerCliente(){
 				url: "php/obtener_cliente_mtd.php",
 				dataType: "json"
 				}).done(function(data){
-					console.log(data.estado);
+					//console.log(data.estado);
 					data.cliente.forEach(function(entry){
 						if(entry.estado == "Activo"){
 							resultado += '<option value="'+entry.id+'">'+entry.cliente+'</option>';
