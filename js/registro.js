@@ -132,15 +132,15 @@ function estatusMedio(){
 			data: {servicio: $("#servicio").val()}
 
 		}).done(function(data){
-			//console.log(data);
+			
 			data.medio.forEach(function(entry){
 				
-				medio += '<option value="'+entry.id+'">'+entry.nombre+'  --  '+entry.turno+'  |  E.- '+entry.entrada+'  |  S.- '+entry.salida+ '</option>';
+				medio += '<option value="'+entry.id+'">'+entry.medio+'</option>';
 				
 			});
 			data.estatus.forEach(function(entry){
 				
-				estatus += '<option value="'+entry.id+'">'+entry.nombre+'  --  '+entry.turno+'  |  E.- '+entry.entrada+'  |  S.- '+entry.salida+ '</option>';
+				estatus += '<option value="'+entry.id+'">'+entry.estatus+'</option>';
 				
 			});
 			

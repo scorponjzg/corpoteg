@@ -32,6 +32,11 @@
     cursor: inherit;
     display: block;
 }
+
+.row {
+
+	margin-bottom : 10px !important; 
+}
 </style>
 <div class="container">
   
@@ -96,21 +101,13 @@
 			<div class="form-group">
 				  <label for="medio">Medio de contacto:</label>
 				  <select class="form-control" id="medio" name="medio">
-					<option value="1">Campo</option>
-					<option value="2">Facebook</option>
-					<option value="3">Referido</option>
-					<option value="4">Indeed</option>
-					<option value="5">Grupos facebook</option>
+					
 				  </select>
 			</div>	 
 			<div class="form-group">
 				  <label for="estatus">Estatus:</label>
 				  <select class="form-control" id="estatus" name="estatus">
-					<option value="1">Contratado</option>
-					<option value="2">Deje recado</option>
-					<option value="3">Entrevista</option>
-					<option value="1">Marcar despu&eacute;s</option>
-					<option value="4" style="color:red;">No interesado</option>
+					
 				  </select>
 			</div>	 			
 			 
@@ -144,8 +141,52 @@
 				</select>
 				
 			</div> 	
+			<div class="row">
+			  <div class="col-sm-4">Horario: </div>
+			  <div class="col-sm-4">Entrada</div>
+			  <div class="col-sm-4">Salida</div>
+			</div>
+			<div class="row">
+			  <div class="col-sm-4">Lunes: </div>
+			  <div class="col-sm-4"><input type="time" name="l-e" id="l-e"></div>
+			  <div class="col-sm-4"><input type="time" name="l-s" id="l-s"></div>
+			</div>
+			<div class="row">
+			  <div class="col-sm-4">Martes: </div>
+			  <div class="col-sm-4"><input type="time" name="m-e" id="m-e"></div>
+			  <div class="col-sm-4"><input type="time" name="m-s" id="m-s"></div>
+			</div>
+			<div class="row">
+			  <div class="col-sm-4">Miércoles: </div>
+			  <div class="col-sm-4"><input type="time" name="mi-e" id="mi-e"></div>
+			  <div class="col-sm-4"><input type="time" name="mi-s" id="mi-s"></div>
+			</div>
+			<div class="row">
+			  <div class="col-sm-4">Jueves: </div>
+			  <div class="col-sm-4"><input type="time" name="j-e" id="j-e"></div>
+			  <div class="col-sm-4"><input type="time" name="j-s" id="j-s"></div>
+			</div>
+			<div class="row">
+			  <div class="col-sm-4">Viernes: </div>
+			  <div class="col-sm-4"><input type="time" name="v-e" id="v-e"></div>
+			  <div class="col-sm-4"><input type="time" name="v-s" id="v-s"></div>
+			</div>
+			<div class="row">
+			  <div class="col-sm-4">Sábado: </div>
+			  <div class="col-sm-4"><input type="time" name="s-e" id="s-e"></div>
+			  <div class="col-sm-4"><input type="time" name="s-s" id="s-s"></div>
+			</div>
+			<div class="row">
+			  <div class="col-sm-4">Domingo: </div>
+			  <div class="col-sm-4"><input type="time" name="d-e" id="d-e"></div>
+			  <div class="col-sm-4"><input type="time" name="d-s" id="d-s"></div>
+			</div>
+			<div class="form-group">		
+				<label for="salario">Salario quincenal:</label>
+				<input type="text" class="form-control" id="salario" name="salario">
+			 </div>	
 			 					
-			  <button type="button" class="btn btn-danger" style="margin-right:25px" id="regresar">Regresar</button>
+			  <button type="button" class="btn btn-danger" style="margin-right:25px" id="regresar">Cancelar</button>
 			  <button type="submit" class="btn btn-success" style="margin: 0 auto;">Registrarse</button>
 			  <br>
 			  <br>

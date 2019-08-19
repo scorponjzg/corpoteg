@@ -16,8 +16,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	$returnJs = [];
 	
 	$sql = "SELECT estatus,  pk_estatus as id FROM estatus";
-	error_log($sql);
-												
+								
 	$result = $conn->query($sql);
 	
 	if ($result->num_rows > 0) {
@@ -34,8 +33,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	}
 
 	$sql = "SELECT medio,  pk_medio as id FROM medio";
-	error_log($sql);
-												
+							
 	$result = $conn->query($sql);
 	
 	if ($result->num_rows > 0) {
