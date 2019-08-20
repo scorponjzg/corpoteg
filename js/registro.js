@@ -84,6 +84,7 @@ function valida_formulario(){
 
 function regresar(){
 	
+	if(confirm("Realmente quiere salir de la captura?"))
 	window.location.replace("reclutamiento.php");
 	
 }
@@ -121,13 +122,14 @@ function obtenerTurno(){
 			
 		});
 }
-function estatusMedio(){
+function estatusMedioEmpresa(){
 	var estatus = '<option value="0">Seleccione un estado</option>';
 	var medio = '<option value="0">Seleccione el medio de contacto</option>';
+	var empresa = '<option value="0">Seleccione una empresa</option>';
 		
 		$.ajax({
 			method: "POST",
-			url: "php/obtener_medio_y_estatus_mtd.php",
+			url: "php/obtener_medio_estatus_empresa_mtd.php",
 			dataType:"json",
 			data: {servicio: $("#servicio").val()}
 
@@ -143,9 +145,16 @@ function estatusMedio(){
 				estatus += '<option value="'+entry.id+'">'+entry.estatus+'</option>';
 				
 			});
+
+			data.empresa.forEach(function(entry){
+				
+				empresa += '<option value="'+entry.id+'">'+entry.empresa+'</option>';
+				
+			});
 			
 			$('#medio').append(medio);
 			$('#estatus').append(estatus);
+			$('#empresa').append(empresa);
 					
 		}).fail(function(error){
 			alert("Funcionalidad no disponible por el momento, intente mas tarde");
@@ -155,7 +164,7 @@ function estatusMedio(){
 $(function(){
 	resolucion_pantalla();
 	obtener_servicio();
-	estatusMedio();
+	estatusMedioEmpresa();
 
 	$("#servicio").change(function(){
 		$("#turno").empty();

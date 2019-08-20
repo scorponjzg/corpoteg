@@ -43,7 +43,12 @@
   <div class="panel panel-default" style="width:50%; margin: 50px auto; text-align:center">
     <form action="#" style="margin: 10px;" id='formulario' autocomplete="off" enctype="multipart/form-data">
 		<div class="well">	
-			
+			<div class="form-group">
+				  <label for="empresa">*Empresa:</label>
+				  <select class="form-control" id="empresa" name="empresa">
+					
+				  </select>
+			</div>	 
 			<div class="form-group">		 
 				<label for="codigo">*C&oacute;digo:</label>
 				<input type="text" class="form-control" id="codigo" name="codigo">
@@ -122,29 +127,29 @@
 					
 				</select>
 			 <div class="form-group">		
-				<label for="tel">Tel&eacute;fono / Celular:</label>
+				<label for="tel">*Tel&eacute;fono / Celular:</label>
 				<input type="text" class="form-control" id="tel" name="tel">
 			 </div>	
 			 <div class="form-group">
 			</div>	
 			<div class="form-group">		 
-				<label for="servicio">Servicio:</label>
+				<label for="servicio">*Servicio:</label>
 				<select  class="form-control" id="servicio" name="servicio">
 					<option value="0">Seleccione un servicio</option>
 				</select>
 				
 			</div> 	
 			<div class="form-group">		 
-				<label for="turno">Turno:</label>
+				<label for="turno">*Turno:</label>
 				<select  class="form-control" id="turno" name="turno">
 					<option value="0">Seleccione un turno</option>
 				</select>
 				
 			</div> 	
 			<div class="row">
-			  <div class="col-sm-4">Horario: </div>
-			  <div class="col-sm-4">Entrada</div>
-			  <div class="col-sm-4">Salida</div>
+			  <div class="col-sm-4">*Horario: </div>
+			  <div class="col-sm-4">*Entrada</div>
+			  <div class="col-sm-4">*Salida</div>
 			</div>
 			<div class="row">
 			  <div class="col-sm-4">Lunes: </div>
@@ -182,7 +187,7 @@
 			  <div class="col-sm-4"><input type="time" name="d-s" id="d-s"></div>
 			</div>
 			<div class="form-group">		
-				<label for="salario">Salario quincenal:</label>
+				<label for="salario">*Salario quincenal:</label>
 				<input type="text" class="form-control" id="salario" name="salario">
 			 </div>	
 			 					

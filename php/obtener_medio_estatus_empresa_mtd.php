@@ -15,7 +15,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	
 	$returnJs = [];
 	
-	$sql = "SELECT estatus,  pk_estatus as id FROM estatus";
+	$sql = "SELECT estatus,  pk_estatus as id FROM estatus WHERE activo = 1";
 								
 	$result = $conn->query($sql);
 	
@@ -32,7 +32,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 		$returnJs['estatus'][] = array("nombre" => "No hay estados registrados");
 	}
 
-	$sql = "SELECT medio,  pk_medio as id FROM medio";
+	$sql = "SELECT medio,  pk_medio as id FROM medio WHERE activo = 1";
 							
 	$result = $conn->query($sql);
 	
@@ -47,6 +47,24 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	} else {
 		
 		$returnJs['medio'][] = array("nombre" => "No hay medios registrados");
+	}
+
+	$sql = "SELECT empresa,  pk_empresa as id FROM empresa WHERE activo = 1";
+	
+							
+	$result = $conn->query($sql);
+	
+	if ($result->num_rows > 0) {
+		
+		while($resultado = $result->fetch_assoc()){
+			
+			$returnJs['empresa'][]= $resultado;
+		}
+		
+		
+	} else {
+		
+		$returnJs['empresa'][] = array("nombre" => "No hay empresas registradas");
 	}
 	$result->free();
 	
