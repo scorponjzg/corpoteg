@@ -46,7 +46,7 @@
 			<div class="form-group">
 				  <label for="empresa">*Empresa:</label>
 				  <select class="form-control" id="empresa" name="empresa">
-					
+
 				  </select>
 			</div>	 
 			<div class="form-group">		 
@@ -91,7 +91,7 @@
 				<input type="text" class="form-control" id="sangre" name="sangre"  >
 			 </div>
 			 <div class="form-group">	
-				<label for="alegia">*Alergias:</label>
+				<label for="alegia">Alergias:</label>
 				<input type="text" class="form-control" id="alegia" name="alegia"  >
 			 </div>
 			 <div class="form-group">	
@@ -100,7 +100,7 @@
 			 </div>
 
 			<div class="form-group">	
-				<label for="direccion">Direcci&oacute;n:</label>
+				<label for="direccion">*Direcci&oacute;n:</label>
 				<textarea rows="3" class="form-control" id="direccion" name="direccion"></textarea>
 			 </div>
 			<div class="form-group">
@@ -115,7 +115,7 @@
 					
 				  </select>
 			</div>	 			
-			 
+			 <div class="form-group">
 				  <label for="reclutador">Reclutador:</label>
 				<select class="form-control" id="reclutador" name="reclutador">
 					<option value="1">Ya contratado
@@ -126,6 +126,7 @@
 					
 					
 				</select>
+			</div>
 			 <div class="form-group">		
 				<label for="tel">*Tel&eacute;fono / Celular:</label>
 				<input type="text" class="form-control" id="tel" name="tel">
@@ -190,6 +191,15 @@
 				<label for="salario">*Salario quincenal:</label>
 				<input type="text" class="form-control" id="salario" name="salario">
 			 </div>	
+			 <div class="form-group">		
+				<label for="horas">*Horas que se laboran al día:</label>
+				<input type="number" class="form-control" id="horas" name="horas" min="1">
+			 </div>	
+			 <div class="row">
+			  <div class="col-sm-4">Fecha y folio de alta en IMSS: </div>
+			  <div class="col-sm-4"><input type="date" name="alta" id="alta"></div>
+			  <div class="col-sm-4"><input type="text" class="form-control" id="folio" name="folio" placeholder="Folio de alta IMSS"></div>
+			</div>
 			 					
 			  <button type="button" class="btn btn-danger" style="margin-right:25px" id="regresar">Cancelar</button>
 			  <button type="submit" class="btn btn-success" style="margin: 0 auto;">Registrarse</button>

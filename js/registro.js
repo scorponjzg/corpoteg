@@ -66,16 +66,74 @@ function valida_formulario(){
 	
 	var nombre = $("#nombre").val();
 	var a_paterno = $("#a_paterno").val();
-	
+	var empresa = $("#empresa").val();
+	var codigo = $("#codigo").val();
+	var nacimiento = $("#nacimiento").val();
+	var imagen = $("#uploadPreview1").attr('src');
+	var nss = $("#nss").val();
+	var curp = $("#curp").val();
+	var sangre = $("#sangre").val();
+	var direccion = $("#direccion").val();
+	var tel = $("#tel").val();
+	var servicio = $("#servicio").val();
+	var turno = $("#turno").val();
 	var correcto = true;
-	
-	if(nombre == ''){
+
+	if(empresa == '0'){
+		alert("Debe asignarle una empresa a la persona a registrar");
+		$("#empresa").focus();		
+		correcto = false;
+	} else if(codigo == ''){
+		alert("Debe asignarle un código a la persona a registrar");
+		$("#codigo").focus();
+		correcto = false;
+	} else if(nombre == ''){
 		alert("El campo nombre no debe estar vac\u00EDo");
 		$("#nombre").focus();
 		correcto = false;
 	} else if(a_paterno == ''){
 		alert("El campo apellido paterno no debe estar vac\u00EDo");
 		$("#a_paterno").focus();		
+		correcto = false;
+	} else if(nacimiento == ''){
+		alert("Se tiene que registrar la fecha de nacimiento");
+		$("#nacimiento").focus();		
+		correcto = false;
+	} else if(imagen == 'img/image_not_available.png'){
+		alert("Debe de seleccionar una foto de la persona a registrar");
+		$("#uploadImage1").focus();		
+		correcto = false;
+	} else if(nss == ''){
+		alert("Se tiene que registrar el número de seguro social");
+		$("#nss").focus();		
+		correcto = false;
+	} else if(curp == ''){
+		alert("Se tiene que registrar la curp");
+		$("#curp").focus();		
+		correcto = false;
+	} else if(sangre == ''){
+		alert("Se tiene que registrar el tipo de sangre");
+		$("#sangre").focus();		
+		correcto = false;
+	} else if(contacto == ''){
+		alert("Se tiene que registrar un contacto de emegencia");
+		$("#contacto").focus();		
+		correcto = false;
+	}  else if(direccion == ''){
+		alert("Debe registrar la dirección del usuario registrar");
+		$("#direccion").focus();		
+		correcto = false;
+	} else if(tel == ''){
+		alert("Debe ingresar el teléfono de la persona a registrar");
+		$("#tel").focus();		
+		correcto = false;
+	}  else if(servicio == '0'){
+		alert("Debe seleccionar un servicio");
+		$("#servicio").focus();		
+		correcto = false;
+	}  else if(turno == '0'){
+		alert("Debe seleccionar un turno de servicio");
+		$("#turno").focus();		
 		correcto = false;
 	}
 		return correcto;
@@ -123,8 +181,8 @@ function obtenerTurno(){
 		});
 }
 function estatusMedioEmpresa(){
-	var estatus = '<option value="0">Seleccione un estado</option>';
-	var medio = '<option value="0">Seleccione el medio de contacto</option>';
+	var estatus = '';
+	var medio = '';
 	var empresa = '<option value="0">Seleccione una empresa</option>';
 		
 		$.ajax({
