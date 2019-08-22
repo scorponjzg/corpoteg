@@ -2,3 +2,5 @@ usuario  	clave
 supervisor1	lavecosup1
 supervisor2	laveco2sup
 p@ul@	p@ul@
+
+/*empresa=1&codigo=1313&nombre=Abraham&a_paterno=Zerem%C3%B1o%20&a_materno=Garcia&nacimiento=1984-11-15&nss=NSS&curp=CURP&sangre=AB%2B&alegia=NINGUNA&contacto=YO%2039393932068&direccion=EFRAIN%20GONZALES%20LUNA%201326&medio=1&estatus=1&reclutador=1&tel=39393932068&servicio=6&turno=5&l-e=09%3A00&l-s=18%3A00&m-e=&m-s=&mi-e=&mi-s=&j-e=&j-s=&v-e=&v-s=&s-e=&s-s=&d-e=&d-s=&salario=10000&horas=8&alta=&folio=*/

@@ -77,7 +77,14 @@ function valida_formulario(){
 	var tel = $("#tel").val();
 	var servicio = $("#servicio").val();
 	var turno = $("#turno").val();
+	var salario = $("#salario").val();
+	var horas = $("#horas").val();
+	var sinHorario = 0;
 	var correcto = true;
+	
+	if( $("#l-e").val() == '' && $("#l-s").val() =='' && $("#m-e").val() =='' && $("#m-s").val() =='' && $("#mi-e").val() == '' && $("#mi-s").val() == '' && $("#j-e").val() == '' && $("#j-s").val() =='' && $("#v-e").val() == '' && $("#v-s").val() =='' && $("#s-e").val() == '' && $("#s-s").val() == '' && $("#d-e").val() =='' && $("#d-s").val() == ""){
+		sinHorario = 1;
+	}
 
 	if(empresa == '0'){
 		alert("Debe asignarle una empresa a la persona a registrar");
@@ -127,16 +134,66 @@ function valida_formulario(){
 		alert("Debe ingresar el teléfono de la persona a registrar");
 		$("#tel").focus();		
 		correcto = false;
-	}  else if(servicio == '0'){
+	} else if(servicio == '0'){
 		alert("Debe seleccionar un servicio");
 		$("#servicio").focus();		
 		correcto = false;
-	}  else if(turno == '0'){
+	} else if(turno == '0'){
 		alert("Debe seleccionar un turno de servicio");
 		$("#turno").focus();		
 		correcto = false;
+	} else if(sinHorario == 1){
+		alert("Debe asignar un horario");
+		$("#l-e").focus();		
+		correcto = false;
+	}else if($("#l-e").val() != '' && $("#l-s").val() =='' || $("#l-e").val() == '' && $("#l-s").val() !=''){
+		alert("Debe tener entrada y salida");
+		$("#l-e").focus();		
+		correcto = false;
+	} else if($("#m-e").val() != '' && $("#m-s").val() =='' || $("#m-e").val() == '' && $("#m-s").val() !=''){
+		alert("Debe tener entrada y salida");
+		$("#m-e").focus();		
+		correcto = false;
+	} else if($("#mi-e").val() != '' && $("#mi-s").val() =='' || $("#mi-e").val() == '' && $("#mi-s").val() !=''){
+		alert("Debe tener entrada y salida");
+		$("#mi-e").focus();		
+		correcto = false;
+	} else if($("#j-e").val() != '' && $("#j-s").val() =='' || $("#j-e").val() == '' && $("#j-s").val() !=''){
+		alert("Debe tener entrada y salida");
+		$("#j-e").focus();		
+		correcto = false;
+	} else if($("#v-e").val() != '' && $("#v-s").val() =='' || $("#v-e").val() == '' && $("#v-s").val() !=''){
+		alert("Debe tener entrada y salida");
+		$("#v-e").focus();		
+		correcto = false;
+	} else if($("#s-e").val() != '' && $("#s-s").val() =='' || $("#s-e").val() == '' && $("#s-s").val() !=''){
+		alert("Debe tener entrada y salida");
+		$("#s-e").focus();		
+		correcto = false;
+	} else if($("#d-e").val() != '' && $("#d-s").val() =='' || $("#d-e").val() == '' && $("#d-s").val() !=''){
+		alert("Debe tener entrada y salida");
+		$("#d-e").focus();		
+		correcto = false;
+	}  else if(salario == ''){
+		alert("Se tiene que registrar el salario quincenal");
+		$("#salario").focus();		
+		correcto = false;
 	}
+	else if(horas == ''){
+		alert("Se tiene que registrar las horas de labor diaria");
+		$("#horas").focus();		
+		correcto = false;
+	} else if($("#alta").val() != '' && $("#folio").val() ==''){
+		alert("Debe ingresar el folio de alta del IMSS");
+		$("#folio").focus();		
+		correcto = false;
+	} else if( $("#alta").val() == '' && $("#folio").val() !=''){
+		alert("Debe ingresar la fecha de alta del IMSS");
+		$("#fecha").focus();		
+		correcto = false;
+	}  
 		return correcto;
+	
 }
 
 
@@ -238,8 +295,9 @@ $(function(){
 		if(valida_formulario()){
 			
 			var serializada = $(this).serialize();
+			console.log(serializada);
 			
-			$.ajax({
+			/*$.ajax({
 				url: "php/guardar_usuario.php",
 				method : "POST",
 				dataType : "json",
@@ -260,7 +318,7 @@ $(function(){
 				
 				alert("Funcionalidad no desponible por el momento, intente m\u00E1s tarde");
 				
-			});
+			});*/
 			
 		}
 	});
