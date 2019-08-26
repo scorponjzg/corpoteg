@@ -295,30 +295,33 @@ $(function(){
 		if(valida_formulario()){
 			
 			var serializada = $(this).serialize();
-			console.log(serializada);
 			
-			/*$.ajax({
+			var formdata = new FormData(this);
+			$.ajax({
 				url: "php/guardar_usuario.php",
 				method : "POST",
-				dataType : "json",
-				data : serializada
+				data : formdata,
+				contentType: false,
+            	processData: false
 				
 			}).done(function(respuesta){
+				var obj = JSON.parse(respuesta);
 				
-				 if(respuesta.registrado == true){
+				 if(obj.correcto == 'true'){
 					 
-					window.location.replace("visor_general_reclutamiento.php");
-					
+					alert(obj.ingresado);
+					window.location.replace("reclutamiento.php");
+
 				 } else {
 					 
-					 alert("Funcionalidad no disponible por el momento, intente m\u00E1s tarde");
+					 alert("1.-Funcionalidad no disponible por el momento, intente m\u00E1s tarde");
 				 }
 				 
 			}).fail(function(){
 				
 				alert("Funcionalidad no desponible por el momento, intente m\u00E1s tarde");
 				
-			});*/
+			});
 			
 		}
 	});

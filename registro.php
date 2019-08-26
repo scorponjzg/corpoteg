@@ -91,8 +91,8 @@
 				<input type="text" class="form-control" id="sangre" name="sangre"  >
 			 </div>
 			 <div class="form-group">	
-				<label for="alegia">Alergias:</label>
-				<input type="text" class="form-control" id="alegia" name="alegia"  >
+				<label for="alergia">Alergias:</label>
+				<input type="text" class="form-control" id="alergia" name="alergia"  >
 			 </div>
 			 <div class="form-group">	
 				<label for="contacto">*Contacto emergencia (nombre y tel.):</label>
