@@ -76,7 +76,7 @@
 			</span>
 				<br>
 				<br>
-				<img id="uploadPreview1" width="150" height="150" src="img/image_not_available.png" />
+				<img id="uploadPreview1" width="110" height="150" src="img/image_not_available.png" />
 			</div>
 			 <div class="form-group">	
 				<label for="nss">*N&uacute;mero de seguro social:</label>

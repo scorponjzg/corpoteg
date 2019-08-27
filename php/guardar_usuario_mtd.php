@@ -12,6 +12,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		$correcto_horario = false;
 		$correcto_usuario = false;
 		$correto_imagen = false;
+		$correcto_vacante = false;
 		$conn = new mysqli($mysql_config['host'], $mysql_config['user'], $mysql_config['pass'], $mysql_config['db']);
 		
 		//check connection_aborted
@@ -51,7 +52,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		$reclutador = isset($_POST['reclutador']) ? $conn->real_escape_string($_POST['reclutador']) : '';
 		$tel = isset($_POST['tel']) ? $conn->real_escape_string($_POST['tel']) : '';
 		$servicio = isset($_POST['servicio']) ? $conn->real_escape_string($_POST['servicio']) : '';
-		$turno = isset($_POST['turno']) ? $conn->real_escape_string($_POST['turno']) : '';
+		$id_vacante = isset($_POST['turno']) ? $conn->real_escape_string($_POST['turno']) : '';
 		$empresa = isset($_POST['empresa']) ? $conn->real_escape_string($_POST['empresa']) : '';
 		$l_e = isset($_POST['l-e']) ? $conn->real_escape_string($_POST['l-e']) : '';
 		$l_s = isset($_POST['l-s']) ? $conn->real_escape_string($_POST['l-s']) : '';
@@ -130,18 +131,27 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 
 				$correcto_horario = 'true';
 			}
+
+			$sql = "INSERT INTO asignado(fk_usuario, fk_vacante) VALUES ({$last_id},{$id_vacante})";
+			
+			$conn->query($sql);
+
+			if($conn->affected_rows == 1){
+
+				$correcto_vacante = 'true';
+			}
 			
 				$correcto_usuario = 'true';
 			
 			}
 
-			if($correcto_usuario == true && $correcto_horario ==  true && $correto_imagen == true){
+			if($correcto_usuario == true && $correcto_horario ==  true && $correto_imagen == true && $correcto_vacante == true){
 
 				$returnJs['ingresado'] = 'Usuario registrado correctamente.';
 				$returnJs['correcto'] = 'true';
 			} else if($correcto_usuario == true ){
 
-				$returnJs['ingresado'] = 'Usuario registrado con error en el horario o la foto, favor de verificar.';
+				$returnJs['ingresado'] = 'Usuario registrado con error en el horario, la foto o turno, favor de verificar.';
 				$returnJs['correcto'] = 'true';
 			} 
 		

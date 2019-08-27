@@ -4,11 +4,11 @@ function obtener_usuario(){
 	
 	$.ajax({
 	  method: "POST",
-	  url: "php/obtener_usuario.php",
+	  url: "php/obtener_usuario_mtd.php",
 	  dataType: "json"
 	  
 	}).done(function(data){
-		console.log(data);
+		
 		$("#nombre_usuario").html(data.nombre);
 		llenar_tabla(data.usuario);
 		
@@ -21,9 +21,10 @@ function obtener_usuario(){
 
 function actualizar(){
 	
-	var identificador = $(this).attr("data-codigo");
+	alert("se están realizando midificaciones, por el momento no disponible")
+	/*var identificador = $(this).attr("data-codigo");
 	identificador = btoa("identificador="+identificador)
-	window.location.replace("editar.html?"+identificador);
+	window.location.replace("editar.html?"+identificador);*/
 }
 
 var tagsToReplace = {
@@ -80,9 +81,16 @@ function llenar_tabla(reporte){
 	console.log(reporte);
 	reporte.forEach(function(entry){
 			
-			fila += '<tr class="success"><td><img src="'+entry.foto+'" class="img-rounded" alt="Cinque Terre" width="70%"></td><td><b>'+safe_tags_replace(entry.nombre)+'</b></td><td><b>'+safe_tags_replace(entry.telefono)+'</b></td><td><b>'+safe_tags_replace(entry.medio)+'</b></td><td><b> En proceso</b></td><td><b>'+safe_tags_replace(entry.servicio)+'</b></td><td><b>'+safe_tags_replace(entry.estatus)+'</b></td><td><b>'+safe_tags_replace(entry.reclutador)+'</b></td><td><b>'+safe_tags_replace(entry.fecha)+'</b></td><td><button id="ver'+entry.identificador+'" type="button" class="btn btn-success actualizar" data-codigo="'+entry.identificador+'" data-accion="1" style="width:'+resolucion+';text-align:center; color: white; padding: 0 0 0 0;"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></td></tr>';
+			fila += '<tr class="success">'+
+			'<td><b>'+safe_tags_replace(entry.codigo)+'</b></td>'+
+			'<td><b>'+safe_tags_replace(entry.nombre)+'</b></td>'+
+			'<td><b>'+safe_tags_replace(entry.telefono)+'</b></td>'+
+			'<td><b>'+safe_tags_replace(entry.contacto)+'</b></td>'+
+			'<td><b>'+safe_tags_replace(entry.empresa)+'</b></td>'+
+			'<td><b>'+safe_tags_replace(entry.servicio)+'</b></td>'+
+			'<td><b>'+safe_tags_replace(entry.turno)+'</b></td>'+
+			'<td style="text-align: center;"><button id="ver'+entry.identificador+'" type="button" class="btn btn-success actualizar" data-codigo="'+entry.identificador+'" data-accion="1" style="width:'+resolucion+'; color: white; padding: 0 0 0 0;"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></td></tr>';
 			
-			credencial += '<div class="well"><div class="img"><img src="'+entry.foto+'" class="img-rounded" alt="Cinque Terre" width="" ></div> </div>';
 	});
 					 
 	$("#reporte").append(fila);
@@ -109,7 +117,7 @@ function resolucion_pantalla(){
 
 $(function(){
 	resolucion_pantalla();
-   // obtener_usuario();
+    obtener_usuario();
 	
 	$("#nuevo").on('click',nuevo_reporte);		
 	

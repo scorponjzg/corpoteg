@@ -298,7 +298,7 @@ $(function(){
 			
 			var formdata = new FormData(this);
 			$.ajax({
-				url: "php/guardar_usuario.php",
+				url: "php/guardar_usuario_mtd.php",
 				method : "POST",
 				data : formdata,
 				contentType: false,
