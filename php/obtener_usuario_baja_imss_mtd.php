@@ -16,11 +16,9 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 	$returnJs = [];
 	$returnJs['show'] = "false";
 
-	$sql = "SELECT u.folio_imss AS folio, SUBSTRING_INDEX(u.activo_imss, ' ', 1) AS fecha, u.pk_usuario AS identificador, u.codigo, CONCAT(u.a_paterno, ' ', u.a_materno, ' ', u.nombre) AS nombre, u.telefono, u.contacto, e.empresa, t.turno, s.servicio  FROM usuario AS u INNER JOIN empresa AS e ON u.fk_empresa = e.pk_empresa INNER JOIN asignado AS a  ON u.pk_usuario = a.fk_usuario INNER JOIN vacante AS v ON v.pk_vacante = a.fk_vacante INNER JOIN turno AS t ON t.pk_turno = v.fk_turno INNER JOIN servicio as s ON s.pk_servicio = v.fk_servicio WHERE u.activo=0 && u.folio_imss IS NOT NULL && u.activo_imss IS NOT NULL ORDER BY e.empresa, s.servicio, t.turno;";
+	$sql = "SELECT u.folio_imss AS folio, SUBSTRING_INDEX(u.activo_imss, ' ', 1) AS fecha, u.pk_usuario AS identificador, u.codigo, CONCAT(u.a_paterno, ' ', u.a_materno, ' ', u.nombre) AS nombre, u.telefono, u.contacto, e.empresa, t.turno, s.servicio  FROM usuario AS u INNER JOIN empresa AS e ON u.fk_empresa = e.pk_empresa INNER JOIN asignado AS a  ON u.pk_usuario = a.fk_usuario INNER JOIN vacante AS v ON v.pk_vacante = a.fk_vacante INNER JOIN turno AS t ON t.pk_turno = v.fk_turno INNER JOIN servicio as s ON s.pk_servicio = v.fk_servicio WHERE u.activo=0 && u.folio_imss IS NOT NULL && u.activo_imss IS NOT NULL && u.baja_imss IS NULL ORDER BY e.empresa, s.servicio, t.turno;";
 	/*$sql = "SELECT u.codigo, CONCAT(u.a_paterno, ' ', u.a_materno, ' ', u.nombre) AS nombre, u.telefono, u.contacto, e.empresa, t.turno, s.servicio  FROM usuario AS u, empresa AS e, asignado AS a, vacante AS v, turno AS t, servicio AS s WHERE u.fk_empresa = e.pk_empresa && u.pk_usuario = a.fk_usuario && v.pk_vacante = a.fk_vacante && t.pk_turno = v.fk_turno && s.pk_servicio = v.fk_servicio && u.activo=1 ORDER BY e.empresa, s.servicio, t.turno;";*/
-
-	error_log($sql);
-												
+											
 	$result = $conn->query($sql);
 	
 	if ($result->num_rows > 0) {

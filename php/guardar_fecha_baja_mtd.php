@@ -22,8 +22,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		$fecha = isset($_POST['fecha']) ? $conn->real_escape_string($_POST['fecha']) : '';
 			
 			$sql = "UPDATE usuario SET baja_imss = '{$fecha}' WHERE pk_usuario={$id}";
-			error_log($sql);
-				
+			
 			$noCambios = $conn->query($sql);
 			//error_log($sql."---".$noCambios);
 			if($conn->affected_rows == 1){

@@ -43,8 +43,8 @@ if (!isset($_SESSION["tipo_corpoteg"]) && !isset($_SESSION["usuario_corpoteg"]))
             <li><a href="reclutamiento.php">Colaboradores</a></li>
             <li><a href="alta_imss.php">Alta IMSS</a></li>
             <li><a href="baja_imss.php">Baja IMSS</a></li>
-            <li><a href="reclutamiento.php">Listado de asistencia</a></li>
-            <li><a href="reclutamiento.php">Lustadi asistencia manual</a></li>
+            <li><a href="listado_asistencia.php">Listado de asistencia</a></li>
+            <li><a href="reclutamiento.php">Asistencia por servicio</a></li>
             <li><a href="#">Estadisticas</a></li>
            
             
